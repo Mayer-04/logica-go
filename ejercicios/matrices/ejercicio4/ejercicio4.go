@@ -1,9 +1,38 @@
 package main
 
+import "fmt"
+
 /*
-Llena una matriz con números de dos en dos, pero dejando únicamente el número 0 en todas las columnas pares.
+Crea una matriz de cualquier tamaño.
+Llena las columnas impares con números que comienzan en 2 y aumentan de dos en dos (2, 4, 6, etc.).
+Llena las columnas pares con el número 0 en todas sus filas.
+
+Ejemplo:
+
+matrix := [][]int{
+	{2, 0, 4},
+	{0, 6, 0},
+	{8, 0, 10},
+}
 */
 
 func main() {
+	matrix := [][]int{
+		{2, 0, 4},
+		{0, 6, 0},
+		{8, 0, 10},
+	}
 
+	num := 2
+	for i := 0; i < len(matrix); i++ {
+		filas := matrix[i]
+		for j := 0; j < len(filas); j++ {
+			if j%2 == 0 {
+				matrix[i][j] = num
+				num += 2
+			}
+		}
+	}
+
+	fmt.Println(matrix) // Output: [[2 0 4] [6 6 8] [10 0 12]]
 }

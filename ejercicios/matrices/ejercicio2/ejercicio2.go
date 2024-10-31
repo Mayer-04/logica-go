@@ -9,11 +9,11 @@ de dos elementos: el índice de la fila y el índice de la columna.
 
 Si no encuentra la palabra debe devolver [-1, -1].
 
-const matrix = [
-  ['HTML', 'CSS', 'JavaScript'],
-  ['Java', 'C++', 'Python'],
-  ['Ruby', 'Go', 'Rust']
-]
+languages := [][]string{
+	{"HTML", "CSS", "JavaScript"},
+	{"Java", "C++", "Python"},
+	{"Ruby", "Go", "Rust"},
+}
 */
 
 func main() {
