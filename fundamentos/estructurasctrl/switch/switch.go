@@ -4,13 +4,18 @@ import "fmt"
 
 /*
 * Switch: Conmutador-Selector
-Una alternativa más limpia y eficiente a múltiples if-else.
-- En Go, cada caso (case) en un switch incluye implícitamente un `break`,
-lo que significa que una vez que se encuentra una coincidencia, el programa no ejecutará los casos siguientes.
-- Go facilita el trabajo con switch al eliminar la necesidad de break explícitos en cada caso.
+Alternativa más limpia y eficiente a múltiples if-else.
+
+* Características:
+- Go facilita el uso de switch eliminando la necesidad de escribir break explícitos en cada `case`,
+lo cual reduce el riesgo de errores y hace el código más claro.
+- Cada caso (case) en un switch incluye implícitamente un `break`, por lo que una vez que se encuentra
+una coincidencia, el programa no ejecutará los casos siguientes de manera automática.
 - Evita la necesidad de múltiples if-else cuando se tiene una sola variable a comparar.
-- La palabra clave `default` se utiliza para indicar que el caso predeterminado se debe ejecutar
-cuando no se encuentra una coincidencia.
+- La palabra clave `default` se utiliza para definir un caso predeterminado que se ejecutará si ningún
+otro `case` coincide. Este bloque es opcional.
+- En Go, el valor evaluado en el switch puede omitirse si se desea evaluar expresiones booleanas
+directamente en cada `case`.
 */
 
 /*
@@ -20,7 +25,22 @@ Go te permite hacerlo utilizando la palabra clave `fallthrough`.
 */
 
 func main() {
-	// Declarando una estructura switch con múltiples casos.
+	//* Switch simple.
+	opcion := 2
+	switch opcion {
+	case 1:
+		fmt.Println("Opción 1: Ver perfil")
+	case 2:
+		fmt.Println("Opción 2: Editar perfil")
+	case 3:
+		fmt.Println("Opción 3: Cerrar sesión")
+	default:
+		fmt.Println("Opción no válida")
+	}
+
+	//* Switch vacío.
+	// Cuando no hay expresión después de switch, Go evalúa cada case como una condición booleana.
+	// Evalúa cada case en el orden en que aparece y ejecuta el bloque de código del primer case que sea `true`.
 	edad := 18
 	switch {
 	case edad < 13:
@@ -31,7 +51,19 @@ func main() {
 		fmt.Println("Eres un adulto")
 	}
 
-	// * Uso de etiquetas: evita la repetición de valores constantes.
+	//* Switch true o Switch condicional.
+	// No se coloca ninguna expresión después de switch, lo que implica que cada condición en los `case`,
+	// es evaluada de manera individual como una expresión booleana.
+	numberOfDays := 28
+	// La expresión 'switch true' es equivalente a 'switch true {  }'.
+	switch {
+	case numberOfDays == 28:
+		fmt.Println("It's February")
+	default:
+		fmt.Println("Not February")
+	}
+
+	//* Uso de etiquetas: evita la repetición de valores constantes.
 	// También se pueden utilizar etiquetas en switch para manejar diferentes casos con el mismo código.
 	switch edad := edad; {
 	case edad < 13:
@@ -42,8 +74,9 @@ func main() {
 		fmt.Println("Eres un adulto")
 	}
 
-	// * Switch de Tipos (Type Switches).
-	// Se puede utilizar para el caso de que la variable sea de otro tipo.
+	//* Switch de Tipos (Type Switch).
+	// El switch de tipos permite verificar el tipo de una variable de interfaz vacía (interface{}).
+	// Es útil cuando necesitamos hacer operaciones distintas dependiendo del tipo real de la variable.
 	var x interface{} = true
 	switch x.(type) {
 	case int:
@@ -53,23 +86,24 @@ func main() {
 	case string:
 		fmt.Println("Es una cadena")
 	default:
-		fmt.Println("Es de otro tipo") // Se imprime 'Es de otro tipo'
+		fmt.Println("Es de otro tipo") // Imprime "Es de otro tipo" en este caso
 	}
 
 	//* Switch con la palabra clave `fallthrough`.
-	// La palabra clave 'fallthrough' indica que el 'case' actual debe ser evaluado,
-	// incluso si se cumple una condición posterior.
+	// La palabra clave `fallthrough` fuerza la ejecución del siguiente caso, incluso si
+	// la siguiente condición no se cumple. Este comportamiento es único en Go y puede ser útil
+	// en casos en que se quiera que el flujo continúe a través de varios casos.
 	switch 1 {
 	case 1:
-		fmt.Println("Play selected") // Se imprime el primer 'case'
+		fmt.Println("Play selected") // Imprime este primer `case`
 		fallthrough
 	case 2:
-		fmt.Println("Settings selected") // Se imprime el segundo 'case'
+		fmt.Println("Settings selected") // Imprime este segundo `case` debido a `fallthrough`
 		fallthrough
 	case 3:
-		fmt.Println("Help selected") // Se imprime el tercer 'case'
+		fmt.Println("Help selected") // También imprime este tercer `case`
 	default:
-		fmt.Println("Invalid selection")
+		fmt.Println("Invalid selection") // No se alcanza debido a `fallthrough`
 	}
 
 	//* Uso de break con etiquetas - En Go, un break dentro de un switch normalmente solo termina el caso actual.
@@ -96,18 +130,6 @@ loop:
 
 	default:
 		fmt.Println("Invalid day")
-	}
-
-	//* Switch true o Switch condicional.
-	// No se coloca ninguna expresión después de switch, lo que implica que cada condición en los `case`,
-	// es evaluada de manera individual como una expresión booleana.
-	numberOfDays := 28
-	// La expresión 'switch true' es equivalente a 'switch true {  }'.
-	switch {
-	case numberOfDays == 28:
-		fmt.Println("It's February")
-	default:
-		fmt.Println("Not February")
 	}
 
 	//* Switch que como primer caso maneja un `default`.

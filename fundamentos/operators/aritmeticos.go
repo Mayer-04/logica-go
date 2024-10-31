@@ -6,6 +6,11 @@ import "fmt"
 * Operadores aritméticos
 - Si divides dos enteros (int), Go realiza la división entera.
 Esto significa que el resultado siempre será un `número entero`, descartando la parte decimal (truncamiento).
+
+* Ejemplo:
+result := 3 / 6
+Como 3 y 6 son enteros, Go realizará la división entera, y el resultado será 0 en lugar de 0.5.
+
 - Si quieres obtener un valor con decimales (punto flotante),
 necesitas que al menos uno de los operandos sea un número de punto flotante (float32 o float64).
 
@@ -32,6 +37,11 @@ func main() {
 	// Como la división es de enteros no devuelve la parte decimal.
 	division := 1905 / 100
 	fmt.Println("División:", division) // Output: 19
+
+	// División con parte decimal (flotantes).
+	// Al menos uno de los operandos debe ser de punto flotante.
+	division2 := float64(1905) / 100
+	fmt.Println("División:", division2) // Output: 19.05
 
 	// Módulo o Resto de enteros.
 	modulo := 10 % 5

@@ -10,12 +10,13 @@ import (
 - Los slices son estructuras más flexibles que los arrays, con longitud dinámica.
 - A diferencia de los arrays, los slices pueden cambiar de tamaño durante la ejecución del programa.
 - La estructura de un slice (puntero, longitud, capacidad) generalmente se asigna en la pila si es seguro hacerlo,
-  pero el array subyacente puede ser asignado en el montón si es necesario.
+pero el array subyacente puede ser asignado en el montón si es necesario.
 - La longitud de un slice es el número de elementos que contiene.
+
 * Capacidad de un slice:
 - Es el número de elementos desde el inicio del slice hasta el final del array subyacente.
 - Cuando se excede la capacidad del slice, Go crea un nuevo array, generalmente duplicando la capacidad,
-  pero este comportamiento puede variar dependiendo del tamaño.
+pero este comportamiento puede variar dependiendo del tamaño.
 
 Un slice internamente es una estructura con tres campos:
 
@@ -125,20 +126,21 @@ func main() {
 	fmt.Println("slice después de delete:", deletedSlice) // Output: [a e]
 
 	// Función `Equal`.
-	// Verifica si dos slices son iguales.
+	// Verifica si dos slices son iguales en longitud y elementos.
 	// Devuelve `true` si ambos slices tienen los mismos elementos en el mismo orden.
 	sliceEqual := []int{0, 42, 8}
 	fmt.Println(slices.Equal(sliceEqual, []int{0, 42, 8})) // Output: true
 	fmt.Println(slices.Equal(sliceEqual, []int{10}))       // Output: false
 
 	// Función `Index`.
-	// Busca un elemento en un slice y devuelve su índice. Devuelve `-1` si el elemento no se encuentra.
+	// Busca un elemento en un slice y devuelve su índice.
+	// Devuelve `-1` si el elemento no se encuentra.
 	sliceToIndex := []int{0, 42, 8}
 	fmt.Println("índice de 42:", slices.Index(sliceToIndex, 42)) // Output: 1
 
 	// Función `Clip`.
 	// Se utiliza para eliminar la capacidad no utilizada de un slice.
-	// Liberar esta capacidad extra no utilizada para reducir el uso de memoria.
+	// Liberar esta capacidad extra no utilizada reduce el uso de memoria.
 	fmt.Println("capacidad del slice c:", cap(c)) // Output: 8
 	sliceClip := slices.Clip(c)
 	fmt.Println("capacidad del nuevo slice con clip:", cap(sliceClip)) // Output: 7
@@ -154,6 +156,7 @@ func main() {
 
 	// Función `Sort`.
 	// Ordena los elementos en un slice en orden ascendente.
+	// Modifica el slice original.
 	sliceToSort := []int{0, 42, 8, -10, 2}
 	slices.Sort(sliceToSort)
 	fmt.Println("slice ordenado:", sliceToSort) // Output: [-10 0 2 8 42]

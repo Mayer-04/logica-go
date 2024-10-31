@@ -22,9 +22,10 @@ Esto significa que cada string es una colección de bytes que representan texto.
 
 * Algunas definiciones:
 - Secuencia: Colección ordenada de elementos, uno tras otro.
-- Byte: Es la unidad básica de almacenamiento de datos en una computadora. Cada byte contiene 8 bits (donde un bit puede ser 0 o 1).
-Un byte puede representar un número entre 0 y 255.
-- Codificar: Es el proceso de transformar datos o información a un formato que pueda ser procesado o entendido por una máquina o computadora.
+- Byte: Es la unidad básica de almacenamiento de datos en una computadora.
+Cada byte contiene 8 bits (donde un bit puede ser 0 o 1). Un byte puede representar un número entre 0 y 255.
+- Codificar: Es el proceso de transformar datos o información a un formato que pueda ser procesado o entendido
+por una máquina o computadora.
 - ASCII: Conjunto de caracteres que usa 7 bits para representar 128 caracteres (0-127), incluyendo letras, números y signos de puntuación.
 - Unicode: Estándar que abarca caracteres de casi todos los idiomas y símbolos, usando hasta 4 bytes para representar caracteres complejos.
 Asigna un número único (código) a cada carácter en casi todos los idiomas del mundo.
@@ -33,15 +34,16 @@ símbolos de otros idiomas, emojis y caracteres especiales. Puede usar entre 1 y
 */
 
 func main() {
-	// Declaración de un string
+	// Declaración de un string.
 	name := "Mayer"
 	fmt.Printf("tipo: %T - valor: %s\n", name, name)
 
-	// Uso de salto de línea con `\n`
+	// Uso de salto de línea con `\n`.
 	secondName := "Andres"
 	fmt.Printf("tipo: %T - valor: %v\n", secondName, secondName)
 
-	// Interpolación de strings con `fmt.Sprintf()`. Permite insertar valores dentro de una cadena.
+	// Interpolación de strings con `fmt.Sprintf()`.
+	// Permite insertar valores dentro de una cadena.
 	fullName := fmt.Sprintf("Mi nombre es %s %s", name, secondName)
 	fmt.Printf("interpolación: %s\n", fullName)
 
@@ -74,7 +76,7 @@ func main() {
 	str3 := strings.ToLower(name)
 	fmt.Println("toLower:", str3)
 
-	// Función `Replace()` Reemplaza una subcadena por otra dentro de la cadena original.
+	// Función `Replace()`: Reemplaza una subcadena por otra dentro de la cadena original.
 	// s: Es la cadena original.
 	// old: Es la cadena que quieres reemplazar.
 	// new: La nueva subcadena que va a reemplazar a `old`.
@@ -108,13 +110,15 @@ func main() {
 	sli := []string{"foo", "bar", "baz"}
 	fmt.Printf("join: %q\n", strings.Join(sli, ", ")) // Output: "foo, bar, baz"
 
-	// Función `Clone` (Introducida en Go 1.18). Devuelve una copia de la cadena.
+	// Función `Clone` (Introducida en Go 1.18).
+	// Devuelve una copia de la cadena.
 	// Útil para reducir el uso de memoria en algunos casos.
 	animal := "León"
 	clone := strings.Clone(animal)
 	fmt.Println("clone:", clone)
 
-	// Función `Cut` (Nueva en Go 1.18). Divide una cadena en dos partes usando un separador.
+	// Función `Cut` (Nueva en Go 1.18).
+	// Divide una cadena en dos partes usando un separador.
 	// Retorna la parte antes del separador, la parte después y un booleano que indica si se encontró el separador.
 	s := "Hola mundo"
 	sep := " "
@@ -123,7 +127,8 @@ func main() {
 	fmt.Println("Después del separador:", after)  // Output: "mundo"
 	fmt.Println("¿Separador encontrado?:", found) // Output: true
 
-	// Función `CutPrefix` (Nueva en Go 1.20). Elimina un prefijo específico del inicio de una cadena.
+	// Función `CutPrefix` (Nueva en Go 1.20).
+	// Elimina un prefijo específico del inicio de una cadena.
 	// Prefijo: Una cadena que aparece al principio de otra.
 	// Retorna la cadena sin el prefijo y un booleano que indica si el prefijo fue encontrado.
 	gopher := "gopher"
@@ -132,7 +137,8 @@ func main() {
 	fmt.Println("Después del prefijo:", after) // Output: "opher"
 	fmt.Println("¿Prefijo encontrado?:", ok)   // Output: true
 
-	// Función `CutSuffix` (Nueva en Go 1.20). Elimina un sufijo específico del final de una cadena.
+	// Función `CutSuffix` (Nueva en Go 1.20).
+	// Elimina un sufijo específico del final de una cadena.
 	// Sufijo: Una cadena que aparece al final de otra.
 	// Retorna la cadena sin el sufijo y un booleano que indica si el sufijo fue encontrado.
 	document := "documento.txt"

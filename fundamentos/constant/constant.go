@@ -4,7 +4,7 @@ import "fmt"
 
 /*
 * Constantes en Go
-- Las constantes en Go son valores inmutables que se definen con la palabra clave 'const'.
+- Las constantes en Go son valores `inmutables` que se definen con la palabra clave 'const'.
 - Las constantes en Go están limitadas a tipos básicos como enteros, flotantes, cadenas y booleanos.
 - No es necesario utilizar todas las constantes definidas para que el programa compile.
 - Al ser inmutables, las constantes deben recibir un valor en el momento de su declaración.
@@ -12,29 +12,29 @@ import "fmt"
 - Las constantes no tienen un tipo fijo hasta que se usan, lo que permite flexibilidad al asignarlas.
 
 * Identificador iota
-- 'iota' es un identificador predefinido en Go que se utiliza en declaraciones de constantes para crear secuencias de valores.
+'iota' es un identificador predefinido en Go que se usa para generar una secuencia de números para sus constantes.
 - El valor de 'iota' comienza en 0 dentro de un bloque de constantes y se incrementa automáticamente con cada línea.
 - Es útil para definir enumeraciones o listas secuenciales de valores relacionados.
 - El operador blank (_) puede usarse para omitir un valor de 'iota' si no es necesario.
 */
 
-// Constante exportable a nivel de paquete (inicia con mayúscula)
+// Constante exportable a nivel de paquete (inicia con mayúscula).
 const Pi = 3.1416
 
-// Constante no exportable, solo visible dentro del paquete (inicia con minúscula)
+// Constante no exportable, solo visible dentro del paquete (inicia con minúscula).
 const version = "1.0.0"
 
-// Constante a nivel de paquete, no exportable
+// Constante a nivel de paquete, no exportable.
 const animal = "🐯"
 
-// Agrupación de constantes relacionadas en un bloque
-// Permite organizar y agrupar valores constantes que están conceptualmente relacionados
+// Agrupación de constantes relacionadas en un bloque.
+// Permite organizar y agrupar valores constantes que están conceptualmente relacionados.
 const (
 	fruit1 = "🍎"
 	fruit2 = "🍐"
 )
 
-// Uso de iota para crear secuencias de valores incrementales
+// Uso de iota para crear secuencias de valores incrementales.
 // Ideal para enumeraciones, días de la semana, estados, etc.
 const (
 	Lunes     = iota // Lunes == 0
@@ -64,7 +64,7 @@ const (
 	Three        // Three == 3 (iota se incrementa automáticamente)
 )
 
-// Definiendo constantes con operaciones matemáticas
+// Definiendo constantes con operaciones matemáticas.
 const (
 	KB = 1 << (10 * iota) // 1 << 10 (1 KB = 1024 bytes)
 	MB                    // 1 << 20 (1 MB = 1024 KB)
@@ -81,7 +81,7 @@ func main() {
 	// Imprimir los valores de las constantes agrupadas.
 	fmt.Printf("frutas: %s, %s\n", fruit1, fruit2)
 
-	// Imprimir constantes definidas a nivel de paquete.
+	// Imprimir los valores de las constantes definidas a nivel de paquete.
 	fmt.Println("animal:", animal)
 	fmt.Println("versión:", version)
 

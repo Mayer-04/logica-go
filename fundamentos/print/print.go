@@ -16,7 +16,7 @@ Este paquete es muy útil porque nos permite mostrar, formatear y leer informaci
 - `fmt.Print()`: Imprime un valor o información en la consola sin un salto de línea.
 - `fmt.Println()`: Imprime un valor o información en la consola y agrega un salto de línea al final.
 - `fmt.Printf()`: Permite imprimir información formateada usando "especificadores de formato".
-  - Los especificadores de formato (`%`) son símbolos que indican cómo queremos que se muestren los valores.
+- Los especificadores de formato (`%`) son símbolos que indican cómo queremos que se muestren los valores.
   Ejemplos: `%v` (genérico), `%s` (cadena), `%d` (entero).
 - `fmt.Scan()` y `fmt.Scanln()`: Se utilizan para leer datos desde la consola.
 La diferencia es que `Scan` toma múltiples valores en una sola línea, y `Scanln` solo uno por línea.
@@ -49,8 +49,14 @@ func main() {
 	fmt.Printf("Mi edad es: %d\n", edad)
 
 	// Usando `%f` es para números con decimales (flotantes).
+	// El número se imprime con 6 decimales por defecto, incluso si el valor original no los tiene.
 	estatura := 1.75
-	fmt.Printf("Mi estatura es: %f\n", estatura)
+	fmt.Printf("Mi estatura es: %f\n", estatura) // Output: Mi estatura es: 1.750000
+
+	// Usando `%.3f` para imprimir el número de decimales después del punto.
+	// El número se imprime solo con 3 decimales.
+	flotante := 1.75554545
+	fmt.Printf("Número flotante: %.3f\n", flotante) // Output: Número flotante: 1.756
 
 	// Usando `%t` para imprimir valores booleanos.
 	vivo := true
@@ -73,16 +79,40 @@ func main() {
 
 	//* Entrada de datos del usuario desde la consola:
 
-	// `fmt.Scan()` Lee múltiples valores separados por espacios en una sola línea.
-	// Puedes ingresar varios valores en una sola línea y los separará y los asignará a las variables correspondientes.
+	/*
+		* Ejemplo 1: Lectura de múltiples valores con `fmt.Scan`.
+		`fmt.Scan` lee valores de la entrada estándar hasta encontrar suficientes elementos
+		para llenar todos los argumentos proporcionados. Los valores deben estar separados
+		por espacios en blanco (espacios, tabs o saltos de línea).
+		Uso típico:
+			Entrada: "Juan 25"
+			Resultado: name="Juan", age=25
+		NOTA: Si el usuario ingresa más valores de los esperados, los adicionales
+		se descartan automáticamente.
+	*/
 	var name string
 	var age int
-	fmt.Print("Ingrese su nombre y edad: ")
+	fmt.Print("Ingrese su nombre y edad (separados por espacio): ")
 	fmt.Scan(&name, &age)
 	fmt.Printf("Hola, %s. Tienes %d años.\n", name, age)
 
-	// `fmt.Scanln()` Lee hasta un salto de línea (Enter), capturando toda la entrada.
-	// Si intentas ingresar varios valores en una sola línea con `fmt.Scanln()`, solo se tomará el primer valor.
+	/*
+		* Ejemplo 2: Lectura de línea completa con `fmt.Scanln`.
+
+		 `fmt.Scanln` lee la entrada hasta encontrar un salto de línea ('\n').
+		 Es ideal para:
+		 - Capturar texto que puede contener espacios
+		 - Asegurar que la lectura se detenga al final de la línea
+
+		 Diferencias clave con `fmt.Scan`:
+		 - Se detiene al encontrar un salto de línea
+		 - Preserva espacios en blanco dentro del texto
+		 - No continúa leyendo en líneas adicionales
+
+		 Ejemplo de uso:
+		  Entrada: "Hola mundo desde Go"
+		  Resultado: sentence="Hola mundo desde Go"
+	*/
 	var sentence string
 	fmt.Print("Ingrese una oración: ")
 	fmt.Scanln(&sentence)
