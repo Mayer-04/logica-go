@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"log"
 	"strconv"
 )
 
@@ -31,8 +32,8 @@ func main() {
 	// Intentamos convertir una cadena a entero usando 'strconv.Atoi'.
 	value, err := strconv.Atoi("10")
 	if err != nil {
-		// Imprimimos un mensaje de error y nos salimos del programa.
-		fmt.Printf("cannot convert %q to int: %v\n", "10", err)
+		// Usamos log para imprimir el error y salimos del programa.
+		log.Printf("cannot convert %q to int: %v\n", "10", err)
 		return
 	}
 
@@ -45,12 +46,21 @@ func main() {
 	if err != nil {
 		// Comprobamos si el error recibido es el específico de "división por cero".
 		if errors.Is(err, errorDivide) {
-			fmt.Println("Error en la división:", err)
+			log.Println("Error en la división:", err)
 		}
 		return
 	}
 	// Imprimimos el resultado.
 	fmt.Println("Resultado:", result)
+
+	// Ejemplo de cómo envolver un error con fmt.Errorf y %w
+	_, err = sqrt(-10)
+	if err != nil {
+		if errors.Is(err, ErrNegativeNumber) {
+			log.Println("Error en la raíz cuadrada:", err)
+		}
+		return
+	}
 }
 
 // Función que realiza una división y devuelve un error si b es igual a 0.
@@ -62,4 +72,30 @@ func divide(a, b float64) (float64, error) {
 	}
 	// Retornamos el resultado de la división y nil, indicando que no hubo error.
 	return a / b, nil
+}
+
+// Ejemplo de cómo envolver un error con fmt.Errorf y %w.
+var ErrNegativeNumber = errors.New("negative number")
+
+func sqrt(x float64) (float64, error) {
+	if x < 0 {
+		return 0, fmt.Errorf("sqrt of %v: %w", x, ErrNegativeNumber)
+	}
+	// Implementación de la raíz cuadrada (simplificada)
+	return x * x, nil
+}
+
+// Función que maneja múltiples errores y devuelve un error compuesto.
+func multipleOperations(a, b float64) (float64, error) {
+	result1, err := divide(a, b)
+	if err != nil {
+		return 0, fmt.Errorf("operation failed: %w", err)
+	}
+
+	result2, err := sqrt(result1)
+	if err != nil {
+		return 0, fmt.Errorf("operation failed: %w", err)
+	}
+
+	return result2, nil
 }
