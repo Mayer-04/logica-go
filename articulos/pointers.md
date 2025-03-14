@@ -54,14 +54,14 @@ package main
 import "fmt"
 
 func main() {
-	x := 7
-	var ptr *int = &x
+ x := 7
+ var ptr *int = &x
 
-	fmt.Println("Value of x:", x)              // Output: 7
-	fmt.Println("Memory address of x:", ptr)   // Output: 0xc00000a0f8
-	fmt.Println("Value pointed by ptr:", *ptr) // Output: 7
+ fmt.Println("Value of x:", x)              // Output: 7
+ fmt.Println("Memory address of x:", ptr)   // Output: 0xc00000a0f8
+ fmt.Println("Value pointed by ptr:", *ptr) // Output: 7
 
-	*ptr = 10
-	fmt.Println("New value of x:", x) // Output: 10
+ *ptr = 10
+ fmt.Println("New value of x:", x) // Output: 10
 }
 ```

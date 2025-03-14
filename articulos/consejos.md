@@ -38,7 +38,7 @@ Los nombres de paquetes en Go deben ser cortos, claros y en minúsculas, evitand
 > [!NOTE]
 > Algunos buenos nombres de paquetes pueden ser: parser, auth, logger, etc.
 
-# La Mejor Forma de Inicializar un Slice en Go
+## La Mejor Forma de Inicializar un Slice en Go
 
 Inicializar correctamente un slice en Go es crucial para el rendimiento de tu programa. Una mala inicialización puede llevar a reasignaciones innecesarias de memoria y sobrecargar el recolector de basura (GC), lo que afecta negativamente la eficiencia.
 
@@ -194,13 +194,13 @@ Si no necesitas interoperabilidad con código `C`, puedes desactivar _CGO_ utili
 CGO_ENABLED=0 go build -ldflags="-s -w" -o my-binary example.go
 ```
 
-### Beneficios de Desactivar CGO:
+### Beneficios de Desactivar CGO
 
 - **Binario más pequeño:** El compilador de Go no incluye dependencias ni código C en el binario resultante. Esto generalmente da como resultado un binario más ligero, ya que todo el código está escrito en Go puro.
 - **Compilación más rápida:** Al no tener que enlazar con bibliotecas C ni ejecutar un compilador C, el proceso de compilación suele ser más rápido.
 - Especialmente útil en entornos controlados como contenedores `Docker`, donde la simplicidad y la portabilidad son clave.
 
-### Consideraciones al Desactivar CGO:
+### Consideraciones al Desactivar CGO
 
 - **Dependencias en C:** Si tu proyecto depende de bibliotecas escritas en C, no podrás usarlas si CGO está desactivado.
 - **Funcionalidad del sistema operativo:** Algunas características específicas del sistema operativo, especialmente las que son de bajo nivel, pueden no estar disponibles directamente en Go sin CGO.

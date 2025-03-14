@@ -8,15 +8,15 @@ package main
 import "fmt"
 
 func main() {
-	sli := []string{"Hello", "World"}
+ sli := []string{"Hello", "World"}
 
     // result := ""
-	var result string
-	for _, val := range sli {
-		result += val
-	}
+ var result string
+ for _, val := range sli {
+  result += val
+ }
 
-	fmt.Println(result) // Output: HelloWorld
+ fmt.Println(result) // Output: HelloWorld
 }
 ```
 
@@ -67,20 +67,20 @@ Para solucionar esto, podemos usar el `paquete strings` de la biblioteca estánd
 package main
 
 import (
-	"fmt"
-	"strings"
+ "fmt"
+ "strings"
 )
 
 func main() {
-	stringsToJoin := []string{"Hello", "World"}
+ stringsToJoin := []string{"Hello", "World"}
 
-	var builder strings.Builder
-	for _, s := range stringsToJoin {
-		builder.WriteString(s)
-	}
+ var builder strings.Builder
+ for _, s := range stringsToJoin {
+  builder.WriteString(s)
+ }
 
-	joinedString := builder.String()
-	fmt.Println(joinedString) // Output: "HelloWorld"
+ joinedString := builder.String()
+ fmt.Println(joinedString) // Output: "HelloWorld"
 }
 ```
 
@@ -96,24 +96,24 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"strings"
+ "fmt"
+ "strings"
 )
 
 func main() {
-	stringsToJoin := []string{"Hello", "World", "!"}
-	separator := " " // El separador que quieres usar
+ stringsToJoin := []string{"Hello", "World", "!"}
+ separator := " " // El separador que quieres usar
 
-	var builder strings.Builder
-	for i, s := range stringsToJoin {
-		if i > 0 {
-			builder.WriteString(separator)
-		}
-		builder.WriteString(s)
-	}
+ var builder strings.Builder
+ for i, s := range stringsToJoin {
+  if i > 0 {
+   builder.WriteString(separator)
+  }
+  builder.WriteString(s)
+ }
 
-	joinedString := builder.String()
-	fmt.Println(joinedString) // Output: "Hello World !"
+ joinedString := builder.String()
+ fmt.Println(joinedString) // Output: "Hello World !"
 }
 ```
 
@@ -129,15 +129,15 @@ Al usar `strings.Join`, Go optimiza la concatenación internamente, evitando las
 package main
 
 import (
-	"fmt"
-	"strings"
+ "fmt"
+ "strings"
 )
 
 func main() {
-	stringsToJoin := []string{"Hello", "World"}
-	joinedString := strings.Join(stringsToJoin, "")
+ stringsToJoin := []string{"Hello", "World"}
+ joinedString := strings.Join(stringsToJoin, "")
 
-	fmt.Println(joinedString) // Output: HelloWorld
+ fmt.Println(joinedString) // Output: HelloWorld
 }
 ```
 

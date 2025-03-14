@@ -32,8 +32,8 @@ El encapsulamiento en Go se consigue controlando la `visibilidad` de los identif
 
 ```go
 type Car struct {
-	Brand string // Público (exportado)
-	model string // Privado (no exportado)
+ Brand string // Público (exportado)
+ model string // Privado (no exportado)
 }
 ```
 

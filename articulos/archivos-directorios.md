@@ -24,7 +24,7 @@ Go en algunos casos, especialmente cuando se hace referencia a detalles de la pl
 
 Se debe optar siempre por lo más legible y mantener consistencia dentro del proyecto.
 
-# Nombres de directorios
+## Nombres de directorios
 
 Los nombres de los directorios en Go siempre se escriben en `minúsculas`, incluso cuando contienen más de una palabra. No se utilizan convenciones como _camelCase_ o _snake_case_ para nombrar directorios. Si el nombre es demasiado largo, se recomienda usar una `abreviatura` o `simplificación`.
 
@@ -35,7 +35,7 @@ Los nombres de los directorios en Go siempre se escriben en `minúsculas`, inclu
 
 Esta convención sigue la guía de estilo oficial del equipo de Go y se observa en sus repositorios oficiales.
 
-# Archivo principal dentro de directorios
+## Archivo principal dentro de directorios
 
 Cuando se crea un **directorio** para un `paquete`, es una buena práctica que el **archivo principal** dentro de ese directorio tenga el mismo nombre que el directorio. Esto facilita la identificación del archivo que contiene el código principal del paquete.
 

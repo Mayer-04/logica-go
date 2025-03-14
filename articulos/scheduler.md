@@ -23,7 +23,7 @@ Go utiliza un modelo conocido como `GMP` para gestionar la ejecución de las gor
 
 _El número de M (hilos del sistema operativo) suele ser menor que el número de G (goroutines), lo que permite que muchas goroutines se ejecuten de manera eficiente utilizando pocos hilos._
 
-### Ejemplos de Analogía para el Modelo GMP:
+### Ejemplos de Analogía para el Modelo GMP
 
 1. **100 Tareas y 10 Trabajadores:** Imagina que tienes 100 tareas (Goroutines) pero solo 10 trabajadores (Hilos). Los trabajadores se turnan para completar las tareas, mientras un supervisor (el P) se asegura de que las tareas sean distribuidas equitativamente entre ellos.
 
@@ -56,6 +56,6 @@ Cuando una goroutine está bloqueada esperando una _operación de red o disco_, 
 
 Una vez que la operación bloqueante se completa, el scheduler decide cuándo reanudar la ejecución de la goroutine bloqueada.
 
-## Context Switching (cambio de contexto):
+## Context Switching (cambio de contexto)
 
 Como las goroutines son ligeras, el `cambio de contexto` entre ellas (el proceso de detener una goroutine y comenzar a ejecutar otra) es mucho más rápido y eficiente en comparación con el `cambio de contexto` entre hilos del sistema operativo. El `scheduler` de Go optimiza estos cambios para reducir el tiempo que las goroutines pasan esperando para ser ejecución.
