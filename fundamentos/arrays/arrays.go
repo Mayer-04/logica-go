@@ -90,6 +90,12 @@ func main() {
 		fmt.Println("elemento:", array[i])
 	}
 
+	// Recorriendo un array con un `for clásico` de manera moderna.
+	// Esta manera de recorrer es preferible al código anterior.
+	for i := range len(array) {
+		fmt.Println("elemento:", array[i])
+	}
+
 	// Recorriendo un array con un for `range`.
 	for i, v := range array {
 		fmt.Println("i:", i, "v:", v)

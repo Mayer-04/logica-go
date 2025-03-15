@@ -76,42 +76,42 @@ func main() {
 
 	// Tamaño o longitud de un slice.
 	// La longitud del slice se obtiene con la función `len()`.
-	fmt.Println("longitud de slice4:", len(slice4))
+	fmt.Println("longitud de slice4:", len(slice4)) // Output: 4
 
 	// Capacidad de un slice.
 	// La capacidad del slice, que es el número de elementos desde el inicio del slice hasta el final del array
 	// subyacente, se obtiene con `cap()`.
-	fmt.Println("capacidad de slice4:", cap(slice4))
+	fmt.Println("capacidad de slice4:", cap(slice4)) // Output: 4
 
 	// Añadir elementos a un slice.
 	// La función `append()` agrega uno o más elementos al slice y modifica el `array subyacente`.
 	slice5 := append(slice4, 6)
-	fmt.Println("slice después de append:", slice5)
+	fmt.Println("slice después de append:", slice5) // Output: [2 3 4 5 6]
 
 	// Limpiar un slice con la función `clear()`.
 	// `clear()` pone los elementos a su valor cero pero mantiene la longitud y capacidad del slice.
 	clear(slice4)
-	fmt.Println("slice después de clear:", slice4)
+	fmt.Println("slice después de clear:", slice4) // Output: [0 0 0 0]
 
 	// Desempaquetar un slice (...).
 	// Los tres puntos permiten expandir un slice y pasarlo como argumentos individuales a una función.
 	a := []int{1, 2, 3, 4}
 	b := []int{4, 5, 6}
 	c := append(a, b...)
-	fmt.Println("slice después de desempaquetar:", c)
+	fmt.Println("slice después de desempaquetar:", c) // Output: [1 2 3 4 4 5 6]
 
 	// Crear un slice la función `make()`.
 	// Permite crear un slice con una longitud y capacidad inicial especificadas.
 	// La capacidad es un argumento opcional.
 	// El slice creado se inicializa con valores cero de su tipo correspondiente.
 	makeBytes := make([]byte, 5)
-	fmt.Println("slice creado con make:", makeBytes)
+	fmt.Println("slice creado con make:", makeBytes) // Output: [0 0 0 0 0]
 
 	// Función `Clone`.
 	// Crea una copia superficial de un slice.
 	sliceToClone := []int{0, 42, -10, 8}
 	clonedSlice := slices.Clone(sliceToClone)
-	fmt.Println("clone de slice:", clonedSlice)
+	fmt.Println("clone de slice:", clonedSlice) // Output: [0 42 -10 8]
 
 	// Función `Contains`.
 	// Verifica si un slice contiene un elemento. Devuelve `true` o `false`.
@@ -123,7 +123,7 @@ func main() {
 	// Elimina un rango de elementos en un slice, especificando el índice de inicio y fin (exclusivo).
 	sliceToDelete := []string{"a", "b", "c", "d", "e"}
 	deletedSlice := slices.Delete(sliceToDelete, 1, 3)
-	fmt.Println("slice después de delete:", deletedSlice) // Output: [a e]
+	fmt.Println("slice después de delete:", deletedSlice) // Output: [a d e]
 
 	// Función `Equal`.
 	// Verifica si dos slices son iguales en longitud y elementos.
@@ -150,9 +150,9 @@ func main() {
 	// Se puede especificar el número de elementos adicionales que se desea agregar.
 	sliceToGrow := []int{0, 42, 8}
 	grownSlice := slices.Grow(sliceToGrow, 2)
-	fmt.Println("slice después de grow:", grownSlice)
-	fmt.Println("longitud:", len(grownSlice))
-	fmt.Println("capacidad:", cap(grownSlice))
+	fmt.Println("slice después de grow:", grownSlice) // Output: [0 42 8]
+	fmt.Println("longitud:", len(grownSlice))         // Output: 3
+	fmt.Println("capacidad:", cap(grownSlice))        // Output: 6
 
 	// Función `Sort`.
 	// Ordena los elementos en un slice en orden ascendente.

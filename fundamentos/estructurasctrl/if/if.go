@@ -55,7 +55,7 @@ func main() {
 	// * Aserción de tipo (Type Assertion).
 	// Es una operación que permite obtener el `valor oculto` almacenado en una variable de tipo interface,
 	// "Oye, sé que esta variable guarda algo, y creo que es un tipo específico. Quiero que me lo muestres como ese tipo".
-	var i interface{} = 10
+	var i any = 10
 	if value, ok := i.(int); ok {
 		fmt.Println("i es un int:", value)
 	} else {

@@ -13,7 +13,7 @@ si un tipo posee `todos` los métodos definidos por una interfaz, entonces ese t
 
 - Las interfaces pueden ser implementadas por cualquier tipo.
 - Un tipo puede implementar múltiples interfaces.
-- Cualquier struct que implemente un método Error() automáticamente implementa la `interfaz Error`.
+- Cualquier struct que implemente un método `Error()` automáticamente implementa la `interfaz Error`.
 - En Go, es común que las interfaces tengan un solo método.
 Esto se conoce como interfaces mínimas, lo que permite una mayor flexibilidad y reusabilidad.
 - Es una buena práctica nombrar las interfaces con un sufijo `-er`, como `Printer` en lugar de `Print`.
@@ -141,11 +141,12 @@ func main() {
 
 	// Ejemplo de interfaz nula.
 	// No ha sido inicializada con ningún valor. Debido a esto, su valor es nil.
-	var i interface{}
+	// Se recomienda utilizar `any` en vez de `interface{}`.
+	var i any
 	fmt.Println("Interfaz nula:", i) // Interfaz nula: <nil>
 
 	// Esta interfaz vacía contiene en su interior un valor de tipo string.
-	e := interface{}("Go")
+	e := any("Go")
 	fmt.Println("Interfaz vacía con un valor de tipo string:", e) // Output: Go
 
 	// Ejemplo de interfaz vacía.

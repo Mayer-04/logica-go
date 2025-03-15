@@ -20,6 +20,8 @@ claves en el JSON que solo se diferencian en mayúsculas/minúsculas, selecciona
 - `"omitempty"`: El campo solo se incluirá si su valor no es el valor cero del tipo
 (por ejemplo, 0 para enteros, "" para cadenas, nil para punteros, etc.).
 - `"string"`: Convierte automáticamente un campo numérico o booleano a una cadena al serializarlo en JSON.
+- `"omitzero":` Implementada en Go (1.24) evita que un campo de un struct sea serializado en JSON si su valor
+es el "zero value" del tipo, incluso si es un struct anidado o un slice/map vacío.
 - Por defecto, si no se especifica una etiqueta, Go usará el nombre del campo de la estructura
 tal como está para el nombre de la clave en JSON.
 
@@ -45,6 +47,7 @@ type Person struct {
 	Age int `json:"age"`
 
 	// La etiqueta "omitempty" indica que el campo solo se incluirá en el JSON si su valor no es el valor cero.
+	//* NOTE: Se recomienda utilizar la nueva etiqueta "omitzero".
 	Active bool `json:"active,omitempty"`
 
 	// La etiqueta "string" convierte campos numéricos o booleanos en cadenas en JSON.
@@ -105,7 +108,7 @@ func main() {
 
 	// Usar `reflect` para inspeccionar etiquetas de los campos en la estructura Country.
 	t := reflect.TypeOf(Country{})
-	for i := 0; i < t.NumField(); i++ {
+	for i := range t.NumField() {
 		field := t.Field(i)
 		tag := field.Tag.Get("json")
 		typeName := field.Type.Name()

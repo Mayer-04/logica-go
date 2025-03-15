@@ -77,7 +77,7 @@ func main() {
 	//* Switch de Tipos (Type Switch).
 	// El switch de tipos permite verificar el tipo de una variable de interfaz vacía (interface{}).
 	// Es útil cuando necesitamos hacer operaciones distintas dependiendo del tipo real de la variable.
-	var x interface{} = true
+	var x any = true
 	switch x.(type) {
 	case int:
 		fmt.Println("Es un entero")

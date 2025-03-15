@@ -41,7 +41,7 @@ La función `io.Copy` usa este método si esta disponible.
 */
 
 func main() {
-	// !NOTE: Este código es simplemente explicativo y no tiene como salida un resultado real.
+	//* NOTE: Este código es simplemente explicativo y no tiene como salida un resultado real.
 
 	// io.Discard es un `io.Writer` que no realiza ninguna acción.
 	// Su función principal es descartar cualquier dato que se le escriba,

@@ -62,7 +62,7 @@ func main() {
 	}
 
 	// Imprimir mensaje en la consola cuando el servidor esté listo.
-	fmt.Println("Server listening on port 8080")
+	fmt.Printf("Server listening on port %s\n", server.Addr)
 
 	// Iniciar el servidor.
 	log.Fatal(server.ListenAndServe())

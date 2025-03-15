@@ -104,7 +104,7 @@ func main() {
 	// Elimina caracteres específicos del inicio y final de una cadena.
 	lastname := "!!Chaves¡¡"
 	str9 := strings.Trim(lastname, "!¡")
-	fmt.Println("trim:", str9)
+	fmt.Println("trim:", str9) // Chaves
 
 	// Une los elementos de un slice en una sola cadena, usando un separador.
 	sli := []string{"foo", "bar", "baz"}

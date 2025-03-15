@@ -7,7 +7,7 @@ import (
 
 /*
 
-nuevo paquete math/rand/v2 en Go 1.22!
+* Nuevo paquete math/rand/v2 en Go 1.22!
 
 - math/rand/v2: Introduce nuevos generadores, como PCG y ChaCha8,
 que son más eficientes y producen una mejor calidad de números aleatorios.

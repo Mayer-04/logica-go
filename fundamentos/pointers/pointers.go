@@ -24,8 +24,8 @@ func main() {
 	// en lugar de declarar la variable primero y luego asignarle un valor en una línea separada.
 	var puntero *int
 
-	//* Operador de dirección de punteros `&`
-	// Asignación del puntero a la dirección de memoria de la variable numero usando el operador &
+	//* Operador de dirección de punteros `&`.
+	// Asignación del puntero a la dirección de memoria de la variable numero usando el operador &.
 	puntero = &numero
 
 	// Acceso al valor a través del puntero utilizando el operador de desreferenciación (*).
