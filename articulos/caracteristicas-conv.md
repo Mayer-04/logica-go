@@ -66,31 +66,50 @@ func main() {
 
 Algunas de las variables de entorno más comunes son:
 
-- GOARCH=amd64 (Arquitectura del procesador)
 - GOOS=windows (Sistema operativo)
+- GOARCH=amd64 (Arquitectura del procesador)
 
-### Compilación Cruzada
+### Compilación Cruzada en Go (Cross-Compilation)
 
-Go permite la compilación cruzada para diferentes sistemas operativos y arquitecturas. Puedes listar las distribuciones de sistemas operativos compatibles con el siguiente comando:
+Go permite la compilación cruzada, lo que significa que puedes compilar tu código en una máquina y generar un ejecutable para otro sistema operativo o arquitectura.
+
+Esto es útil para distribuir tu software en múltiples plataformas sin requerir que los usuarios tengan Go instalado.
+
+Puedes listar sistemas operativos y arquitecturas compatibles con el siguiente comando:
 
 ```bash
 go tool dist list
 ```
 
-Ejemplo de compilación cruzada:
+Este comando te mostrará pares de `GOOS/GOARCH` compatibles, como **linux/amd64**, **windows/arm64**, **darwin/arm64**, **solaris/amd64**, etc.
+
+### Ejemplo de compilación cruzada
+
+Para compilar un programa en Go para diferentes plataformas, debes definir las variables de entorno `GOOS` (Sistema Operativo) y `GOARCH` (Arquitectura) antes de ejecutar `go build`.
 
 ```bash
 GOOS=windows && GOARCH=amd64 go build -o hello.exe hello.go
 GOOS=android && GOARCH=arm64 go build -o hello_android.exe hello.go
+GOOS=linux GOARCH=amd64 go build -o hello_linux hello.go
 ```
 
-Durante la compilación, se crea un `archivo objeto` que contiene código ensamblador. Luego, un enlazador _(linker)_ combina este archivo objeto para crear un binario ejecutable. El binario se crea en un directorio temporal, conocido como `work`. Al ejecutar `go run`, el binario se llama desde este directorio.
+### ¿Cómo funciona internamente la compilación cruzada en Go?
 
-Por ejemplo, para ver dónde se crea el binario temporal, puedes usar:
+Cuando compilas un programa en Go:
+
+1. El compilador genera un *archivo objeto*, que contiene código en ensamblador específico para la plataforma de destino.
+
+2. El *enlazador (linker)* toma este archivo objeto y lo combina con las bibliotecas estándar de Go para producir un binario ejecutable.
+
+3. El ejecutable generado es completamente independiente y no requiere dependencias externas, lo que lo hace fácil de distribuir.
+
+Si ejecutas `go run`, Go crea un binario temporal en un directorio de trabajo *(work)* y lo ejecuta automáticamente. Puedes ver este directorio usando:
 
 ```bash
 go run --work hello.go
 ```
+
+Esto te mostrará la ruta del binario temporal antes de ejecutarlo.
 
 ## Tamaño de un Archivos en Linux
 

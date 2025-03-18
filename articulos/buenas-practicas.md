@@ -1,4 +1,4 @@
-# Consejos y Buenas Prácticas en Go
+# Buenas Prácticas en Go
 
 ## Punto y Coma
 
@@ -131,7 +131,7 @@ Envolver errores proporciona más contexto sobre dónde y por qué ocurrió el e
 
 Aunque la función `panic()` puede ser recuperado con `recover()`, esto no siempre es posible ni recomendable.
 
-- `recover()` solo puede capturar pánicos en la misma goroutine donde se llama, el pánico de otra función no puede ser recuperado por la función diferida en **main()**. Esto resulta en un crash del programa.
+- `recover()` solo puede capturar pánicos en la misma goroutine donde se llama, el pánico de otra función no puede ser recuperado por la función diferida en **main()**. Esto resulta en un _crash_ del programa.
 - Un pánico en una parte del sistema puede provocar fallos en otras partes, especialmente en entornos de microservicios o sistemas distribuidos, causando fallos en cascada.
 - Debería limitarse a situaciones críticas como la inicialización de un programa.
 
@@ -139,7 +139,7 @@ Aunque la función `panic()` puede ser recuperado con `recover()`, esto no siemp
 
 **Inlining (inlinear):** Insertar el `código` de una función dentro de otra función para evitar la llamada a la función hija, lo que puede mejorar el rendimiento al reducir la sobrecarga de la llamada a la función.
 
-Cuando Go compila el código, intenta inlinear las funciones para mejorar el rendimiento. El uso de `new(T)` en lugar de `&T{}` tiene un costo de `inlining` más bajo porque new(T) es una operación más simple y directa, lo que facilita que Go realice la optimización.
+Cuando Go compila el código, intenta inlinear las funciones para mejorar el rendimiento. El uso de `new(T)` en lugar de `&T{}` tiene un costo de `inlining` más bajo porque **new(T)** es una operación más simple y directa, lo que facilita que Go realice la optimización.
 
 - Tanto `new(T)` como `&T{}` crean un nuevo valor de `tipo T` y devuelven un puntero a ese valor.
 - `new(T)` solo asigna espacio para un valor del `tipo T` y devuelve un puntero a la memoria asignada
