@@ -5,6 +5,8 @@ import "fmt"
 /*
 * Constantes en Go
 - Las constantes en Go son valores `inmutables` que se definen con la palabra clave 'const'.
+- Las constantes en Go deben conocerse completamente antes de que el programa se ejecute, es decir,
+en tiempo de compilación.
 - Las constantes en Go están limitadas a tipos básicos como enteros, flotantes, cadenas y booleanos.
 - No es necesario utilizar todas las constantes definidas para que el programa compile.
 - Al ser inmutables, las constantes deben recibir un valor en el momento de su declaración.
@@ -96,4 +98,13 @@ func main() {
 	fmt.Printf("1 MB = %v bytes\n", MB) // 1 MB = 1024 bytes
 	fmt.Printf("1 GB = %v bytes\n", GB) // 1 GB = 1048576 bytes
 	fmt.Printf("1 TB = %v bytes\n", TB) // 1 TB = 1073741824 bytes
+
+	//* Se pueden `determinar en tiempo en ejecución`.
+	//* NOTA: Tiempo de compilación → Es cuando el programa se traduce a código ejecutable.
+	const firstName = "Mayer"
+	const lastName = "Chaves"
+	// Go puede hacer esta operación antes de ejecutar el programa
+	// porque los valores ya están definidos y no cambian.
+	const fullName = firstName + " " + lastName
+	fmt.Println("fullname:", fullName) // Output: Mayer Chaves
 }
