@@ -39,7 +39,8 @@ func main() {
 	var casa1, casa2, casa3 string = "🏠", "🏡", "🏚️"
 	fmt.Printf("casas: %s, %s, %s\n", casa1, casa2, casa3)
 
-	// Declaración de variable corta :=
+	//* Declaración de variable corta :=
+	//  Declara una nueva variable y le asigna un valor en una sola línea.
 	// Es una manera más simple de crear variables en Go, solo puede utilizarse dentro de funciones.
 	// Infiere automáticamente el tipo basado en el valor asignado.
 	age := 23
