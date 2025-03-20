@@ -9,13 +9,25 @@ import (
 
 /*
 * Manejo de Errores en Go
-En Go, los errores se tratan de manera `explícita` en lugar de usar excepciones, como en otros lenguajes.
-Esto proporciona un manejo de errores más claro y controlado. Algunos puntos clave son:
-- Los errores se devuelven como el último valor de retorno en las funciones.
+
+📖 FRASE: Los errores son valores.
+
+En Go, cualquier tipo que implemente la interfaz `error` se considera un error.
+
+Los errores se tratan de manera `explícita` en lugar de usar excepciones, como en otros lenguajes.
+Lo que hace que el código sea más claro y controlado.
+
+✅ Un buen manejo de errores hace que tu código sea más robusto y fácil de depurar.
+
+* Puntos clave:
+- Las funciones devuelven los errores como `último valor de retorno`.
 - Para manejar los errores, generalmente usamos la estructura de control `if`.
-- El valor por defecto de un error es `nil`, lo que indica que no hubo error.
-- No se deben ignorar los errores devueltos, incluso por operaciones con `defer`,
+- Si no hay error, el valor del error será `nil`.
+- No se deben ignorar los errores devueltos, incluso en operaciones con `defer`,
 si deseas ignorar un error, utiliza el operador blank `_`.
+
+* NOTA:
+Como los errores son solo interfaces, puedes definir tus `propios tipos de error` implementando `error`.
 
 * Es un error común manejar un mismo error varias veces. Debemos recordar que:
 - Manejar un error significa registrarlo (log) o devolverlo (return), no ambas cosas.
@@ -23,6 +35,17 @@ si deseas ignorar un error, utiliza el operador blank `_`.
 - Para envolver un error y mantener su contexto original, usa `fmt.Errorf` con la directiva `%w`,
 permitiendo comparar con `errors.Is` o extraer el error con `errors.As`.
 - Si no deseas exponer el error original a quien llama a la función, usa `%v` en lugar de `%w`.
+
+* Errores comunes al manejar errores:
+
+1️⃣ Evita manejar el mismo error varias veces.
+   - Manejar un error significa `registrarlo (log)` o `devolverlo (return)`, pero no ambas cosas.
+   - Si decides manejar un error, hazlo solo una vez.
+
+2️⃣ Envolver errores correctamente.
+   - Usa `fmt.Errorf` con `%w` para `mantener el contexto original` del error.
+   - Esto permite comparar errores con `errors.Is` o extraer detalles con `errors.As`.
+   - Si no quieres exponer el error original, usa `%v` en lugar de `%w`.
 */
 
 // La función 'New()' del paquete "errors" crea un nuevo valor de error con un mensaje personalizado.
