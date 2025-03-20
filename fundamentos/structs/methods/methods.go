@@ -4,8 +4,20 @@ import "fmt"
 
 /*
 * Métodos en Structs
-- Se recomienda siempre trabajar o bien con el receptor de tipo valor o puntero.
-- No combinar estos dos tipos de receptor en una misma estructura. Esto evita confusión y posibles errores.
+En Go, un método es una función que se asocia a una estructura mediante un **receptor**.
+
+* Receptor
+- Es un parámetro especial que se define antes del nombre de la función.
+- Permite que la función acceda a los campos y métodos de la estructura a la que pertenece.
+- Se recomienda utilizar como nombre del receptor **la primera letra** del nombre de la estructura.
+
+* Tipos de receptores
+- Receptor por valor: Se usa cuando el método **no modifica** la estructura original.
+- Receptor por puntero: Se usa cuando el método **modifica** los campos de la estructura
+o cuando se desea evitar copias innecesarias.
+
+* NOTA: Es recomendable no mezclar métodos con receptor por valor y por puntero en una misma estructura,
+ya que puede generar confusión y errores inesperados.
 */
 
 // Product representa un producto con un nombre y un precio.
