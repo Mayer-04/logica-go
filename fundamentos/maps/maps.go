@@ -16,7 +16,7 @@ donde se necesita buscar elementos por clave.
 - En un mapa `no` pueden haber dos claves iguales. Cada clave en un mapa debe ser única.
 - Si intentas asignar un valor a una clave que ya existe en el mapa, el valor asociado con esa clave se actualizará.
 
-IMPORTANTE:
+* IMPORTANTE:
 - Para evitar problemas al agregar elementos a un map, asegúrese de crearlo usando la función `make()`
 para inicializarlo correctamente.
 - El valor cero de un map no inicializado es `nil`, lo que significa que no apunta a ninguna estructura de datos.
@@ -61,20 +61,20 @@ func main() {
 	fmt.Println("Valor de la llave 'd':", nuevoMapa["d"]) // Output: Valor de la llave 'd': 0
 
 	// La función incorporada `delete()` elimina el elemento con la clave especificada del mapa.
-	delete(edades2, "Mayer") // Eliminando del map edades2 la clave "Mayer" con su valor.
-	fmt.Println("Edades2:", edades2)
+	delete(edades2, "Mayer")         // Eliminando del map edades2 la clave "Mayer" con su valor.
+	fmt.Println("Edades2:", edades2) // Output: map[Andres:23]
 
 	//* Verificando si una clave existe en el mapa y obteniendo su valor.
 	// "value" es el valor de la clave "a". Si la clave no existe, "value" será el valor cero.
 	// "ok" es un booleano que indica si la clave existe en el map.
 	value, ok := nuevoMapa["a"]
-	fmt.Printf("Valor: %v - Existe: %t\n", value, ok)
+	fmt.Printf("Valor: %v - Existe: %t\n", value, ok) // Output: Valor: 1 - Existe: true
 
 	// Comprobando si la clave existe con un if.
 	// Las claves del mapa deben tener un valor `booleano` para hacer esta comprobación.
 	mapBool := map[string]bool{"a": true, "b": false}
 	if mapBool["a"] {
-		fmt.Printf("La clave 'a' existe en el map.")
+		fmt.Printf("La clave 'a' existe en el mapa\n") // Esta línea será ejecutada.
 	}
 
 	// Eliminando todos los elementos del map usando la función `clear()`.
@@ -117,10 +117,10 @@ func main() {
 	// Si una clave de 'src' ya existe en 'dst', su valor será reemplazado por el valor de 'src'.
 	newMap := make(map[string]int)
 	maps.Copy(newMap, edades2)
-	fmt.Println("copy:", newMap)
+	fmt.Println("copy:", newMap) // Output: map[Andres:23]
 
 	// `Clone()`.
 	// Crea y devuelve una copia del mapa proporcionado.
 	clone := maps.Clone(newMap)
-	fmt.Println("clone:", clone)
+	fmt.Println("clone:", clone) // Output: map[Andres:23]
 }

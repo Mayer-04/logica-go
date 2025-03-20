@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /*
 * Types: Tipos en Go
@@ -22,7 +24,7 @@ type Person struct {
 // Esto permite trabajar con múltiples instancias de Person como un solo tipo.
 type People []Person
 
-//* Alias de tipos.
+// * Alias de tipos.
 // Creando un nuevo tipo basado en un tipo existente en este caso `int`.
 // MyNumber es un `alias` para el tipo int, lo que nos permite agregar métodos específicos.
 type MyNumber int
@@ -83,4 +85,13 @@ func main() {
 	number2 := MyNumber(42)
 	fmt.Printf("person2: %+v\n", person2)                             // Output: person2: {Name:Messi Age:37}
 	fmt.Printf("number2 (con método String): %s\n", number2.String()) // Output: 42
+
+	// * Alias de tipo genérico Go 1.24.
+	type ID = int
+
+	var n int = 10
+	var id ID = 10
+
+	id = n                       // funciona correctamente
+	fmt.Printf("id es %T\n", id) // Output: id es int
 }

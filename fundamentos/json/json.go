@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"time"
 )
 
 /*
@@ -46,8 +47,8 @@ type Person struct {
 	// El campo `Age` se convertirá en la clave "age" en JSON.
 	Age int `json:"age"`
 
-	// La etiqueta "omitempty" indica que el campo solo se incluirá en el JSON si su valor no es el valor cero.
 	//* NOTE: Se recomienda utilizar la nueva etiqueta "omitzero".
+	// La etiqueta "omitempty" indica que el campo solo se incluirá en el JSON si su valor no es el valor cero.
 	Active bool `json:"active,omitempty"`
 
 	// La etiqueta "string" convierte campos numéricos o booleanos en cadenas en JSON.
@@ -55,22 +56,30 @@ type Person struct {
 }
 
 type Country struct {
-	// `Nombre` se serializa como "nombre" en el JSON.
-	Nombre string `json:"nombre"`
+	// `Name` se serializa como "name" en el JSON.
+	Name string `json:"name"`
 
-	// `Habitantes` se serializa como "habitantes".
-	Habitantes int `json:"habitantes"`
+	// `Population` se serializa como "population".
+	Population int `json:"population"`
 
 	// `Capital` se serializa como "capital".
 	Capital string `json:"capital"`
 
-	// `Idiomas` se serializa como un array de cadenas en JSON.
-	Idiomas []string `json:"idiomas"`
+	// `Languages` se serializa como un array de cadenas en JSON.
+	Languages []string `json:"languages"`
 }
 
 type Person2 struct {
 	// Se espera que coincida con "name" o "Name" en el JSON, pero Go toma la última coincidencia encontrada.
 	Name string `json:"name"`
+}
+
+// * Omitzero: omite el valor cero de valores como time.Time.
+type Example struct {
+	Name      string    `json:"name,omitzero"`
+	Age       int       `json:"age,omitzero"`
+	Balance   float64   `json:"balance,omitzero"`
+	BirthDate time.Time `json:"birth_date,omitzero"`
 }
 
 func main() {
@@ -94,7 +103,7 @@ func main() {
 	fmt.Printf("JSON de Person: %s\n", str) // Output: {"name":"Mayer","age":24,"play":"false"}
 
 	// Ejemplo de JSON para deserialización (Unmarshal).
-	exampleJson := `{"nombre":"Canada","habitantes":37314442,"capital":"Ottawa","idiomas":["Inglés","Francés"]}`
+	exampleJson := `{"name":"Canada","population":37314442,"capital":"Ottawa","languages":["Inglés","Francés"]}`
 	// Crear una instancia vacía de Country.
 	var countrys Country
 
@@ -129,4 +138,10 @@ func main() {
 	// En este caso, Go preferirá la clave "Name" ya que es la última coincidencia.
 	fmt.Printf("Resultado deserializado: %+v\n", p) // Output: {Name:Lucas}
 	fmt.Printf("Nombre: %s\n", p.Name)              // Output: Lucas
+
+	//* Omitzero: omite el valor cero de valores como time.Time.
+	data := Example{Name: "", Age: 0, Balance: 0.0, BirthDate: time.Time{}}
+	result, _ := json.Marshal(data)
+	// Si estuviéramos usando omitempty, la salida sería: {"birth_date":"0001-01-01T00:00:00Z"}.
+	fmt.Println(string(result)) // {}: Todos los campos son omitidos por omitzero
 }

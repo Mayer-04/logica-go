@@ -8,6 +8,13 @@ import (
 /*
 * Goroutines
 Las goroutines son hilos ligeros gestionados por el runtime de Go, que permiten ejecutar funciones de manera concurrente.
+
+* Otra definición de goroutine:
+Una goroutine es una función que ejecuta el código en un hilo de ejecución diferente al hilo principal.
+No es un thread del sistema operativo, sino un hilo ligero gestionado por el runtime de Go.
+
+- Las goroutines son muy eficientes en memoria (comienzan con solo 2KB de pila) y permiten ejecutar miles de tareas
+concurrentes sin sobrecargar el sistema.
 - Para iniciar una goroutine, solo necesitas agregar la palabra clave 'go' antes de la llamada a la función.
 - La función `main` se ejecuta como una goroutine principal en todos los programas Go.
 - Es importante recordar que la goroutine `main` no espera automáticamente a que otras goroutines finalicen.

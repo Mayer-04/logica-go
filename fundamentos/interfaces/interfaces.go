@@ -4,43 +4,53 @@ import "fmt"
 
 /*
 * Interfaces en Go:
-Las interfaces en Go son una forma de definir un conjunto de métodos que un tipo debe implementar.
-Su objetivo principal es crear `abstracciones` en el código, solo debes crear interfaces cuando realmente las necesitas.
+Las interfaces en Go son una forma de definir un conjunto de métodos que un 'tipo' debe implementar.
+- las interfaces solo definen la firma de los métodos, pero no su comportamiento.
+- Su objetivo principal es crear `abstracciones` en el código.
+- Solo debes crear interfaces cuando realmente las necesitas.
 
-IMPORTANTE: Go utiliza un sistema de interfaces implícitas, lo que significa que no es necesario declarar
-que un tipo "implementa" una interfaz; simplemente,
-si un tipo posee `todos` los métodos definidos por una interfaz, entonces ese tipo satisface esa interfaz.
+* IMPORTANTE:
+En Go, las interfaces son implícitas, lo que significa que no es necesario declarar que un tipo las implementa.
+Si un tipo tiene todos los métodos definidos en una interfaz, automáticamente la satisface,
+sin necesidad de usar palabras clave como `implements o extends`.
 
 - Las interfaces pueden ser implementadas por cualquier tipo.
-- Un tipo puede implementar múltiples interfaces.
-- Cualquier struct que implemente un método `Error()` automáticamente implementa la `interfaz Error`.
+- Un tipo puede implementar varias interfaces.
+- Manten las interfaces simples (pequeñas).
+- Cualquier `struct` que tenga un método `Error()` implementa la interfaz `error`.
 - En Go, es común que las interfaces tengan un solo método.
-Esto se conoce como interfaces mínimas, lo que permite una mayor flexibilidad y reusabilidad.
-- Es una buena práctica nombrar las interfaces con un sufijo `-er`, como `Printer` en lugar de `Print`.
+Esto se conoce como interfaces mínimas, lo que las hace más flexibles.
+- Es una buena práctica nombrar las interfaces con el sufijo `-er`, como `Printer` en lugar de `Print`.
 - Las interfaces pueden ser compuestas, es decir, una interfaz puede incluir otras interfaces.
-- IMPORTANTE: Puedes implementar interfaces definidas en otros paquetes de Go, no solo las que tú defines.
+- Puedes implementar interfaces de otros paquetes, no solo las que defines tú.
 
-* Características adicionales:
-- Una interfaz nula no tiene un valor ni un tipo concreto.
-Una interfaz nula se crea simplemente al declarar una interfaz sin asignarle un valor.
-- Una interfaz vacía tiene cero métodos y puede ser utilizada para manejar datos de cualquier tipo.
-Una interfaz vacía no es considerada una expresión.
+* Interfaces vacías
+🔹 Una `interfaz vacía` (`interface{}`) no tiene métodos y puede contener datos de cualquier tipo.
+	- Es útil cuando el tipo exacto de los datos es desconocido.
+    - Una interfaz vacía no es considerada una expresión.
+	- En código moderno, se recomienda utilizar `any` en lugar de `interface{}`.
 
 * ¿Cuándo usar interfaces?
-- Comportamiento común: Usar interfaces cuando varios tipos implementan un comportamiento común (Polimorfismo).
+---------------------------
+1️⃣ Comportamiento común: Usar interfaces cuando varios tipos implementan un comportamiento común (Polimorfismo).
+
 *Ejemplo:
 Imagina que tienes varios tipos (estructuras) en tu programa que comparten un comportamiento común.
 En lugar de duplicar código, puedes definir una interface que capture ese comportamiento.
 
-- Desacoplamiento: El desacoplamiento es cuando queremos que nuestro código sea más flexible y no esté atado
-a implementaciones específicas, es decir, que cada componente sea independiente y pueda cambiarse sin afectar a otros componentes.
+2️⃣ Desacoplamiento: El desacoplamiento es cuando queremos que nuestro código sea más flexible y no esté atado
+a implementaciones específicas, es decir, que cada componente sea independiente y pueda cambiarse
+sin afectar a otros componentes.
+
 * Ejemplo:
 Si estas creando una aplicación que necesita guardar datos e inicialmente decides guardar los datos
 en un archivo y deseas cambiar la implementación para que los datos se guarden en una base de datos,
 puedes definir un interface que te permita hacer estos cambios de manera sencilla.
 
-- Restringir el comportamiento: Cuando queremos asegurarnos de que un tipo específico cumple
+3️⃣ Restringir el comportamiento: Cuando queremos asegurarnos de que un tipo específico cumple
 con ciertos requisitos o restricciones.
+
+* NOTA: Un código más simple es un código más fácil de mantener.
 */
 
 // Printer es una interfaz mínima que define un solo método Print.
@@ -54,7 +64,7 @@ type Logger interface {
 }
 
 // PrinterLogger es una interfaz compuesta que incluye las interfaces Printer y Logger.
-// Cualquier tipo que implemente ambos métodos (Print y Log) satisfará la interfaz PrinterLogger.
+// Cualquier tipo que implemente ambos métodos (Print y Log) cumple con la interfaz PrinterLogger.
 type PrinterLogger interface {
 	Printer
 	Logger
@@ -157,9 +167,10 @@ func main() {
 	emptyInterface = "Hello, World!"
 	fmt.Println("Interfaz vacía con un string:", emptyInterface) // Interfaz vacía con un string: Hello, World!
 
-	// Type assertion - Verificar el tipo de emptyInterface.
-	// Validar el tipo concreto que tiene la interfaz vacía y si es ese tipo obtener el valor que esta dentro de ella.
-	// Si emptyInterface.(type)
+	//* Type Switches - Comprobando el tipo de `emptyInterface`.
+	// Un "type switch" permite verificar el tipo concreto de una interfaz vacía (`interface{}`).
+	// Si `emptyInterface` coincide con alguno de los tipos especificados en los `case`,
+	// se ejecuta el bloque correspondiente.
 	switch emptyInterface.(type) {
 	case int:
 		fmt.Println("Es un int")

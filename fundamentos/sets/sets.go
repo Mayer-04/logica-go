@@ -26,6 +26,7 @@ func main() {
 	fmt.Printf("Conjunto inicial: %#v\n", set)
 
 	// Creando un set utilizando una estructura vacía para mayor eficiencia.
+	// Se recomienda más esta forma porque una estructura vacía ocupa '0 bytes' en memoria.
 	set2 := map[int]struct{}{
 		1: {},
 		2: {},

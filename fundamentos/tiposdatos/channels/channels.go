@@ -7,13 +7,21 @@ import (
 
 /*
 * Channels: Canales en Go
-Los canales en Go permiten la comunicación y sincronización entre goroutines, facilitando el envío y recepción de datos.
 
-- Los canales deben crearse asignandoles memoria utilizando la función `make()`. Su tipo de dato es `chan`.
-- El operador `<-` se usa para enviar datos a un canal (canal <- dato) y para recibir datos de un canal (dato <- canal).
-- Los canales pueden bloquearse (esperar) si no hay una goroutine disponible
-para recibir los datos enviados o para enviar los datos requeridos.
-- La función `close()` se utiliza para indicar que no se enviarán más datos a través de un canal.
+📖 FRASE: No se comunique compartiendo memoria, comparta memoria comunicándose.
+
+Los canales en Go permiten la comunicación y sincronización entre goroutines,
+facilitando el intercambio seguro de datos.
+
+- Los canales se crean con la función `make()`, y su tipo de dato es `chan`.
+- El operador `<-` se usa para enviar datos a un canal (canal <- dato) y también
+para recibir datos de un canal (dato <- canal).
+- Un canal declarado pero no inicializado es `nil`.
+- Enviar como recibir desde un canal `nil` bloqueara el programa.
+- Un canal se bloquea si no hay una goroutine disponible para recibir o enviar datos.
+- La función `close()` se usa para cerrar un canal, indicando que no se enviarán más datos a través de él.
+- Enviar datos a un canal que se ha cerrado con `close()` causará un `panic`.
+- Recibir datos de un canal cerrado devolvera el `valor cero` del tipo del canal.
 
 * Existen canales con y sin búfer:
 - Sin búfer: Los envíos y recepciones se bloquean hasta que la otra parte esté lista.
@@ -23,6 +31,15 @@ para recibir los datos enviados o para enviar los datos requeridos.
 - Evitar el `deadlock`, que ocurre cuando todas las goroutines están bloqueadas, esperando unas de otras.
 - Los canales unidireccionales se usan para limitar el uso de un canal a solo enviar o solo recibir datos,
 lo cual puede ayudar a evitar errores.
+
+* Señalizar
+Significa notificar a una goroutine (o a varias) que un evento ha ocurrido, sin necesidad de transferir datos.
+
+* Notificar o señalizar eventos:
+- Cuando usamos canales (chan) en Go, a menudo queremos comunicar información entre goroutines.
+Sin embargo, en algunos casos no necesitamos enviar datos, sino solo indicar que algo ha ocurrido.
+- 'chan struct{}' nos permite señalizar eventos sin desperdiciar memoria.
+- Es más eficiente que 'chan bool' porque no consume memoria.
 */
 
 func main() {
@@ -84,8 +101,22 @@ func main() {
 		fmt.Println("valor:", value) // Output: 1, 2, 3
 	}
 
-	// Canales de notificación.
-	// disconnectCh := make(chan bool)
+	//* Canales de notificación.
+	// Se utilizan cuando se necesita notificar o señalizar a otras goroutines de que algo ha ocurrido.
+	// No se usan para enviar datos entre goroutines.
+
+	// Se usa 'chan struct{}' en lugar de 'chan bool' para reducir el uso de memoria.
+	done := make(chan struct{})
+
+	go func() {
+		fmt.Println("Goroutine en ejecución")
+		// Cuando `close` es ejecutado, `main()` detecta que el canal se cerró y puede seguir ejecutando.
+		close(done) // 🔴 No enviamos datos, solo cerramos el canal
+	}()
+
+	// No recibe datos, solo detecta que el canal fue cerrado.
+	<-done // ⏳ Se desbloquea cuando el canal se cierra
+	fmt.Println("Finalizado")
 }
 
 // `send` envía un valor entero al canal.

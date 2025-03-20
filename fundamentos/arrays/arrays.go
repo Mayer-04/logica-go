@@ -38,29 +38,30 @@ func main() {
 	fmt.Println("array:", array) // Output: [10 20 30 40 50]
 
 	// Ejemplo de uso de la función `len()` para obtener la longitud del array.
-	fmt.Println("longitud de array:", len(array)) // Output: 5
+	fmt.Println("longitud de array:", len(array1)) // Output: 5
 
 	// Declaración de un array con valores literales.
 	// Los valores se proporcionan directamente entre llaves.
 	array2 := [3]string{"Mayer", "Andres", "Chaves"}
 	fmt.Println("array literal:", array2)
 
-	// * Cuando declaramos un array literal: arr := [3]int{1, 2, 3, 4}, lo que realmente sucede es esto:
+	// * IMPORTANTE:
+	// Cuando declaramos un array literal: arr := [3]int{1, 2, 3, 4}, lo que realmente sucede es esto:
 	arr := [4]int{}
 	arr[0] = 1
 	arr[1] = 2
 	arr[2] = 3
 	arr[3] = 4
 
-	// Declaración de un array multidimensional.
+	// Declaración de un array multidimensional (una matriz).
 	// Se definen arrays dentro de arrays para crear una estructura de datos bidimensional.
 	array3 := [3][2]int{{10, 20}, {30, 40}, {50, 60}}
-	fmt.Println("array multidimensional:", array3)
+	fmt.Println("matriz:", array3) // Output: [[10 20] [30 40] [50 60]]
 
 	// Array con longitud implícita.
 	// El tamaño del array se infiere automáticamente basado en la cantidad de elementos proporcionados.
 	array4 := [...]int{10, 20, 30}
-	fmt.Println("array con longitud implícita:", array4)
+	fmt.Printf("array con longitud implícita: %v, longitud: %d\n", array4, len(array4))
 
 	// * Array con longitud implícita - Inicialización indexada.
 	// Se inicializan elementos específicos de un array usando índices,
@@ -83,21 +84,20 @@ func main() {
 	// Los arrays en Go se pasan por valor.
 	// Asignar un array a otra variable crea una `copia` de todos los elementos del array original.
 	var copyArray = array
-	fmt.Println("copia del array:", copyArray)
+	fmt.Println("copia del array:", copyArray) // Output: [false false]
 
-	// Recorriendo un array con un `for clásico`.
-	for i := 0; i < len(array); i++ {
-		fmt.Println("elemento:", array[i])
-	}
-
-	// Recorriendo un array con un `for clásico` de manera moderna.
-	// Esta manera de recorrer es preferible al código anterior.
-	for i := range len(array) {
-		fmt.Println("elemento:", array[i])
-	}
+	// Los arrays se pueden comparar con `==` si tienen el mismo tipo, longitud y los elementos son iguales.
+	// Como `array` y `copyArray` tienen la misma longitud y los mismos elementos, son iguales.
+	fmt.Println("comparando arrays:", array == copyArray) // Output: true
 
 	// Recorriendo un array con un for `range`.
-	for i, v := range array {
+	names := [3]string{"Mayer", "Andres", "Luis"}
+	for i := range len(names) {
+		fmt.Println("elemento:", names[i])
+	}
+
+	// Recorriendo un array con un for `range` con su índice y su valor.
+	for i, v := range names {
 		fmt.Println("i:", i, "v:", v)
 	}
 }

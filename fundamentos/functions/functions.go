@@ -14,7 +14,8 @@ Se trabaja con una copia del valor, no con el valor original.
 - Para tipos como int, float, bool, string, array y struct, pasar por valor significa copiar todo el contenido.
 - Los tipos que parecen pasarse por referencia (slices, maps, channels, etc.) en realidad se pasan por valor,
 pero el valor que se pasa contiene una referencia a los datos subyacentes.
-- Para slices, maps, channels, y pointers, pasar por valor significa copiar la referencia, no los datos a los que apunta.
+- Para slices, maps, channels, y pointers, pasar por valor significa copiar la referencia,
+no los datos a los que apunta.
 
 * Conceptos clave:
 1. Funciones de orden superior: Funciones que aceptan otras funciones como argumentos o las retornan.
@@ -95,7 +96,7 @@ func saludar(name, lastname string) {
 // Para trabajar con parámetros por referencia se deben utilizar "Punteros".
 func increment(x *int) {
 	// Operador desreferenciación - Acceder al valor almacenado en la dirección de memoria.
-	*x++ // Incrementa el valor en la dirección de memoria apuntada por x
+	*x++ // Incrementa el valor en la dirección de memoria apuntada por x.
 }
 
 // Función con valor de retorno - return.
@@ -144,7 +145,8 @@ func factorial(n int) int {
 }
 
 // * Closures - Funciones que capturan variables del entorno.
-// Cada vez que la función anónima es llamada, accede y modifica la misma instancia de "counter", que existía cuando fue creada.
+// Cada vez que la función anónima es llamada, accede y modifica la misma instancia de "counter",
+// que existía cuando fue creada.
 func createCounter() func() int {
 	counter := 0
 	// La función anónima captura la referencia a la variable counter de su entorno léxico osea createCounter().

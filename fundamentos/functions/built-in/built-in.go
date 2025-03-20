@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 /*
 * Funciones Incorporadas en Go
@@ -50,7 +53,7 @@ func main() {
 	fmt.Println("copy:", dst, "número de elementos copiados:", n)
 
 	// `close()` cierra un canal, lo que indica que no se enviarán más valores a través de él.
-	// IMPORTANTE: Leer o enviar a un canal cerrado causará un panic.
+	//* IMPORTANTE: Leer o enviar a un canal cerrado causará un `panic`.
 	ch := make(chan int)
 	close(ch)
 
@@ -67,15 +70,22 @@ func main() {
 	newSlice := make([]int, 5) // Crea un slice de enteros con longitud 5
 	fmt.Println("make:", newSlice)
 
-	// `max()` retorna el número mayor o el más grande de varios argumentos numéricos.
+	// `max()` Encuentra el valor más grande de una lista de números o textos.
+	// Puede usarse con enteros, flotantes o cadenas.
 	fmt.Println("max:", max(1, 2, 4, 6, 7, 8, 9)) // Output: 9
 
-	// `min()` retorna el número menor o el más pequeño de varios argumentos numéricos.
-	fmt.Println("min:", min(1, 2, 0, 5, 10, 9)) // Output: 0
+	//* IMPORTANTE: Si NaN está en la lista, `min` y `max` devuelven NaN.
+	fmt.Println(max(3.0, math.NaN(), 5.0)) // → NaN
+	fmt.Println(min(3.0, math.NaN(), 5.0)) // → NaN
+
+	// `min()` Encuentra el valor más pequeño de una lista de números o textos.
+	// Puede usarse con enteros, flotantes o cadenas.
+	fmt.Println("min:", min(1, 2, 0, 5, 10, 9))  // Output: 0
+	fmt.Println(min("zebra", "apple", "banana")) // Output: apple
 
 	// `real()` retorna la parte real de un número complejo.
 	complexNum := 1 + 2i
-	fmt.Println("real:", real(complexNum))
+	fmt.Println("real:", real(complexNum)) // Output: 1
 
 	// `panic()` lanza una excepción en tiempo de ejecución, deteniendo la ejecución de la goroutina actual.
 	// `recover()` se usa para recuperar de un panic, permitiendo que el programa continúe ejecutándose.

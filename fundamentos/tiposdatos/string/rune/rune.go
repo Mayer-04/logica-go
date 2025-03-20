@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unicode/utf8"
+)
 
 /*
 * Rune: Runa en Go
@@ -63,4 +66,25 @@ func main() {
 	 La posición en el loop es en bytes, no en caracteres. UTF-8 usa múltiples bytes para algunos caracteres,
 	 por lo que la posición en bytes de cada runa no siempre coincide con la posición en caracteres.
 	*/
+
+	const name = "Mayer"
+
+	// Cada carácter ASCII ocupa exactamente 1 byte en UTF-8.
+	// Como "Mayer" tiene 5 caracteres, el resultado será 5 bytes.
+	fmt.Printf("Número de bytes de 'name' ('Mayer'): %d\n", len(name)) // Output: 5
+
+	// Como todos los caracteres de "Mayer" son ASCII, la cantidad de runas (caracteres) es la misma.
+	fmt.Printf("Número de runas en 'name': %d\n", utf8.RuneCountInString(name)) // Output: 5
+
+	fmt.Println("=====================================")
+
+	// Ahora usamos una cadena que contiene un carácter especial: "Andrés".
+	const secondName = "Andrés"
+
+	// En UTF-8, la letra 'é' ocupa 2 bytes, mientras que las demás letras ocupan 1 byte cada una.
+	// Como "Andrés" tiene 6 caracteres, pero la 'é' usa 2 bytes, el total de bytes será 7.
+	fmt.Printf("Número de bytes de 'secondName' ('Andrés'): %d\n", len(secondName)) // Output: 7
+
+	// Aunque ocupa 7 bytes, sigue teniendo 6 caracteres visibles (runas).
+	fmt.Printf("Número de runas en 'secondName': %d\n", utf8.RuneCountInString(secondName)) // Output: 6
 }

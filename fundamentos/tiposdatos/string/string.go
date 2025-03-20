@@ -11,10 +11,10 @@ import (
 - Los strings son secuencias inmutables de bytes, codificados en UTF-8.
 Esto significa que cada string es una colección de bytes que representan texto.
 - Un carácter ASCII ocupa un byte, mientras que los caracteres Unicode pueden necesitar más (hasta 4 bytes en UTF-8).
-- Los strings son inmutables: una vez creados, no pueden modificarse directamente.
+- Los strings son inmutables: Una vez creados, no pueden modificarse directamente.
 - Los strings se declaran entre comillas dobles "".
 - Los espacios en blanco, saltos de línea y otros caracteres especiales también son parte del string.
-- Se pueden concatenar usando el operador `+` o `fmt.Sprintf()`, que formatea cadenas.
+- Se pueden `concatenar` usando el operador `+` o `fmt.Sprintf()`, que formatea cadenas.
 - Los caracteres entre comillas simples '' se tratan como runas (`rune`), un alias para el tipo int32.
 
 * Substrings: Son secuencias de caracteres consecutivos que se encuentran dentro del string original.
@@ -45,7 +45,7 @@ func main() {
 	// Interpolación de strings con `fmt.Sprintf()`.
 	// Permite insertar valores dentro de una cadena.
 	fullName := fmt.Sprintf("Mi nombre es %s %s", name, secondName)
-	fmt.Printf("interpolación: %s\n", fullName)
+	fmt.Printf("interpolación: %s\n", fullName) // Output: "Mi nombre es Mayer Andres"
 
 	// Modificar un string (convertir a slice de bytes).
 	// Los strings en Go son inmutables, pero se pueden convertir a un slice de bytes para hacer modificaciones.
@@ -56,25 +56,25 @@ func main() {
 	fmt.Printf("nuevoString: %q\n", nuevoString) // "Mola"
 
 	// Obtener la longitud de un string usando la función `len()`.
-	fmt.Println("longitud de name:", len(name))
+	fmt.Println("longitud de name:", len(name)) // Output: 5
 
 	// Concatenar dos strings utilizando el operador +.
 	nameAndSecondName := name + " " + secondName
-	fmt.Println("concatenar strings:", nameAndSecondName)
+	fmt.Println("concatenar strings:", nameAndSecondName) // Output: "Mayer Andres"
 
 	//* Paquete "strings": Métodos útiles para manipular cadenas.
 
 	// Verifica si una cadena contiene una subcadena. Retorna true o false.
 	str := strings.Contains(name, "Mayer")
-	fmt.Println("contains:", str)
+	fmt.Println("contains:", str) // Output: true
 
 	// Obtener el índice de la primera aparición de una subcadena. Retorna el índice como entero.
 	str2 := strings.Index(name, "y")
-	fmt.Println("index:", str2)
+	fmt.Println("index:", str2) // Output: 2
 
 	// Convierte todos los caracteres de una cadena a minúsculas.
 	str3 := strings.ToLower(name)
-	fmt.Println("toLower:", str3)
+	fmt.Println("toLower:", str3) // Output: "mayer"
 
 	// Función `Replace()`: Reemplaza una subcadena por otra dentro de la cadena original.
 	// s: Es la cadena original.
@@ -104,7 +104,7 @@ func main() {
 	// Elimina caracteres específicos del inicio y final de una cadena.
 	lastname := "!!Chaves¡¡"
 	str9 := strings.Trim(lastname, "!¡")
-	fmt.Println("trim:", str9) // Chaves
+	fmt.Println("trim:", str9) // Output: Chaves
 
 	// Une los elementos de un slice en una sola cadena, usando un separador.
 	sli := []string{"foo", "bar", "baz"}
@@ -115,7 +115,7 @@ func main() {
 	// Útil para reducir el uso de memoria en algunos casos.
 	animal := "León"
 	clone := strings.Clone(animal)
-	fmt.Println("clone:", clone)
+	fmt.Println("clone:", clone) // Output: "León"
 
 	// Función `Cut` (Nueva en Go 1.18).
 	// Divide una cadena en dos partes usando un separador.

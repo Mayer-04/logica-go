@@ -77,7 +77,7 @@ func main() {
 	binario := 0b1010
 	fmt.Printf("Binario: %b\n", binario)
 
-	//* Entrada de datos del usuario desde la consola:
+	//* ENTRADA DE DATOS DESDE LA CONSOLA:
 
 	/*
 		* Ejemplo 1: Lectura de múltiples valores con `fmt.Scan`.
