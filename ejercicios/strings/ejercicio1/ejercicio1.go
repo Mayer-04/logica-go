@@ -3,8 +3,13 @@ package main
 import "fmt"
 
 /*
-Crea una función que reciba una string y devuelva un map donde la clave es cada letra única
-y el valor es el número de veces que esa letra aparece en el string.
+Escribe una función que reciba una cadena de texto y retorne un mapa en el que:
+- Cada clave representa un carácter único de la cadena.
+- Cada valor indica la cantidad de veces que ese carácter aparece en la cadena.
+
+* Ejemplo:
+Entrada: "golang"
+Salida: {'g': 2, 'o': 1, 'l': 1, 'a': 1, 'n': 1}
 */
 
 func main() {
@@ -20,7 +25,7 @@ func main() {
 func contarCaracteres(s string) map[string]int {
 	newMap := make(map[string]int)
 
-	for i := 0; i < len(s); i++ {
+	for i := range len(s) {
 		caracter := string(s[i])
 		newMap[caracter]++
 	}

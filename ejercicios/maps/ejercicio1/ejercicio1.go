@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 /*
-Crea una función que tome un slice de enteros y devuelva un map.
+Crea una función que tome un slice de enteros y devuelva un mapa.
 Donde la clave es el entero y el valor es la cantidad de veces que aparece en el slice.
 */
 

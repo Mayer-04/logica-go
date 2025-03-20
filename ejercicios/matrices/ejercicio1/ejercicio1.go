@@ -45,7 +45,7 @@ func diagonalDifference(arr [][]int) int {
 	sumaIzq := 0
 	sumaDer := 0
 
-	for i := 0; i < len(arr); i++ {
+	for i := range arr {
 		sumaIzq += arr[i][i]
 		sumaDer += arr[i][len(arr)-1-i]
 	}

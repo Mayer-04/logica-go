@@ -15,7 +15,6 @@ el operador && solo se puede aplicar a expresiones booleanas (que devuelven true
 */
 
 func main() {
-
 	// 1. Mayor que 1
 	// 2. El número no se considera ni primo ni compuesto
 	// 3. Tiene solo dos divisores positivos: el mismo número y el 1

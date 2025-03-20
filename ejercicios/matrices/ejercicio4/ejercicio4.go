@@ -24,9 +24,9 @@ func main() {
 	}
 
 	num := 2
-	for i := 0; i < len(matrix); i++ {
+	for i := range matrix {
 		filas := matrix[i]
-		for j := 0; j < len(filas); j++ {
+		for j := range filas {
 			if j%2 == 0 {
 				matrix[i][j] = num
 				num += 2

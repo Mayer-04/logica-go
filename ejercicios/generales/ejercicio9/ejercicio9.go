@@ -36,7 +36,7 @@ func GetConcatenation3(nums []int) []int {
 	ans := make([]int, 2*n) // Crear el array ans con tamaño 2n
 
 	// Copiar los valores en la primera y segunda mitad de ans
-	for i := 0; i < n; i++ {
+	for i := range n {
 		ans[i] = nums[i]
 		ans[i+n] = nums[i]
 	}

@@ -25,7 +25,7 @@ func buildTriangle(n int) {
 	}
 
 	asterisks := ""
-	for i := 0; i < n; i++ {
+	for range n {
 		asterisks += "*"
 		fmt.Println(asterisks)
 	}

@@ -3,13 +3,13 @@ package main
 import "fmt"
 
 /*
-Dada una cadena de caracteres s, queremos calcular su puntuación.
+Dada una cadena de caracteres `s`, queremos calcular su puntuación.
 
 * La puntuación de una cadena se calcula de la siguiente manera:
 1. Primero, conviertes cada carácter de la cadena a su valor ASCII
 (un número que representa a cada letra en la computadora).
 2. Luego, para cada par de caracteres consecutivos en la cadena, calculas la diferencia absoluta
- entre sus valores ASCII.
+entre sus valores ASCII.
 3. Finalmente, sumas todas esas diferencias absolutas para obtener la puntuación total.
 
 * Reglas:
@@ -23,9 +23,10 @@ Se calcula como: |a - b|, es decir, si a es mayor o menor que b, el resultado si
 s = "hello"
 
 Explicación:
-Los valores ASCII de los caracteres en s son:
+Los valores ASCII de los caracteres en `s` son:
 'h' = 104, 'e' = 101, 'l' = 108, 'l' = 108, 'o' = 111.
-Entonces, la puntuación de s sería |104 - 101| + |101 - 108| + |108 - 108| + |108 - 111| = 3 + 7 + 0 + 3 = 13.
+Entonces, la puntuación de `s` sería:
+|104 - 101| + |101 - 108| + |108 - 108| + |108 - 111| = 3 + 7 + 0 + 3 = 13.
 
 Salida: 13
 
@@ -34,8 +35,9 @@ Entrada:
 s = "zaz"
 
 Explicación:
-Los valores ASCII de los caracteres en s son:
-'z' = 122, 'a' = 97. Entonces, la puntuación de s sería |122 - 97| + |97 - 122| = 25 + 25 = 50.
+Los valores ASCII de los caracteres en `s` son:
+'z' = 122, 'a' = 97. Entonces, la puntuación de `s` sería:
+|122 - 97| + |97 - 122| = 25 + 25 = 50.
 
 Salida: 50
 */
@@ -44,7 +46,7 @@ func main() {
 	s := "hello"
 	fmt.Println(scoreOfString(s)) // 13
 
-	// Ejemplo 2
+	//* Ejemplo 2
 	str := "zaz"
 	fmt.Println(scoreOfString(str)) // 50
 }

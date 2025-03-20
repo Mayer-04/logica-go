@@ -18,10 +18,13 @@ func fusionMapas(mapa1, mapa2 map[string]int) map[string]int {
 	longitudTotal := len(mapa1) + len(mapa2)
 	nuevoMapa := make(map[string]int, longitudTotal)
 
+	//* En Go moderno se prefiere usar:
+	// 	maps.Copy(nuevoMapa, mapa1)
 	for c, v := range mapa1 {
 		nuevoMapa[c] = v
 	}
 
+	// maps.Copy(nuevoMapa, mapa2)
 	for c, v := range mapa2 {
 		nuevoMapa[c] = v
 	}

@@ -33,7 +33,7 @@ func dosSlices(enteros []int, n int) ([]int, []int) {
 
 	// Recorremos el slice de enteros
 	for _, value := range enteros {
-		// método Contains del paquete slices que verifica si en "primeros" estan los valores de enteros.
+		// método `Contains` del paquete slices que verifica si en "primeros" estan los valores de enteros.
 		result := slices.Contains(primeros, value)
 
 		// Si en "primeros" no estan los valores del slice de enteros entonces los agrego a la variable resto.

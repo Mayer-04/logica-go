@@ -37,8 +37,8 @@ func main() {
 	sumaColumnas := make([]int, columnas)
 
 	// Calcular las sumas de las filas y las columnas
-	for i := 0; i < filas; i++ {
-		for j := 0; j < columnas; j++ {
+	for i := range filas {
+		for j := range columnas {
 			sumaFilas[i] += matriz[i][j]    // Sumar el valor a la fila correspondiente
 			sumaColumnas[j] += matriz[i][j] // Sumar el valor a la columna correspondiente
 		}

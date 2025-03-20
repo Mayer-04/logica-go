@@ -21,7 +21,6 @@ func main() {
 }
 
 func concatenarSlices(slice1, slice2 []int) []int {
-
 	sumaCapacidades := cap(slice1) + cap(slice2)
 
 	// Inicializar result con la longitud adecuada.

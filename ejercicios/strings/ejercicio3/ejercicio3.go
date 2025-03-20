@@ -7,8 +7,13 @@ import (
 
 /*
 * Cuenta vocales:
-Escribe un programa que reciba una cadena y cuente cuántas vocales (a, e, i, o, u) contiene.
-Deberás ignorar las mayúsculas y minúsculas, es decir, trata las letras de manera insensible a mayúsculas.
+Escribe un programa que reciba una cadena de texto y cuente cuántas vocales (a, e, i, o, u) contiene.
+
+- El conteo debe ser insensible a mayúsculas y minúsculas.
+
+* Ejemplo:
+Entrada: "Hola Mundo"
+Salida: 4
 */
 
 func main() {

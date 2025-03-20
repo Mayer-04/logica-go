@@ -18,7 +18,7 @@ func main() {
 	fmt.Println("número mayor:", mayor) // 80
 	fmt.Println("Índice:", indice)      // 10
 
-	// Ejemplo 2
+	//* Ejemplo 2
 	mayor2, indice2 := example2(enteros)
 	fmt.Println("número mayor example2:", mayor2) // 80
 	// Como el número mayor pasa a ser el ultimo en el slice por la función `sort.Ints` devuelve el ultimo índice.
@@ -29,7 +29,7 @@ func enteroMayor(enteros []int) (int, int) {
 	mayor := enteros[0]
 	index := 0
 
-	for i := 0; i < len(enteros); i++ { // Empezamos desde el segundo elemento
+	for i := range enteros { // Empezamos desde el segundo elemento
 		if enteros[i] > mayor {
 			mayor = enteros[i]
 			fmt.Println(i)

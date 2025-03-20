@@ -8,7 +8,6 @@ import (
 //* Suma de enteros pares: Escribe un programa que sume todos los números pares en un rango dado de enteros.
 
 func main() {
-
 	numbers := []int{1, 2, 3, 4, 5, 6}
 	result, err := addEvenNumbers(numbers)
 
@@ -21,7 +20,6 @@ func main() {
 }
 
 func addEvenNumbers(nums []int) (int, error) {
-
 	if len(nums) == 0 {
 		return 0, errors.New("no hay números en el slice")
 	}

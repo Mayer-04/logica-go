@@ -19,7 +19,6 @@ func main() {
 }
 
 func NumeroDeVeces(cadena, caracter string) int {
-
 	contador := 0
 
 	newString := strings.ToLower(cadena)

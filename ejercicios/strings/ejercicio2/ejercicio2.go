@@ -4,8 +4,11 @@ import "fmt"
 
 /*
 * Reemplazar caracteres:
-Haz un programa que reciba una cadena y reemplace todos los espacios en blanco por guiones bajos (_).
-Por ejemplo, la cadena "Go is fun" debería transformarse en "Go_is_fun".
+Escribe un programa que reciba una cadena de texto y reemplace todos los espacios en blanco por guiones bajos (_).
+
+Ejemplo:
+Entrada: "Go is fun"
+Salida: "Go_is_fun"
 */
 
 func main() {
@@ -13,7 +16,7 @@ func main() {
 	result := reemplazarCaracteres(str)
 	fmt.Println(result)
 
-	// Ejemplo 2
+	//* Ejemplo 2
 	result2 := replaceCharacters(str)
 	fmt.Println(result2)
 }
