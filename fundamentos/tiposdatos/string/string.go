@@ -4,33 +4,36 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"unicode/utf8"
 )
 
 /*
-* Strings: Secuencia de bytes.
-- Los strings son secuencias inmutables de bytes, codificados en UTF-8.
-Esto significa que cada string es una colección de bytes que representan texto.
-- Un carácter ASCII ocupa un byte, mientras que los caracteres Unicode pueden necesitar más (hasta 4 bytes en UTF-8).
-- Los strings son inmutables: Una vez creados, no pueden modificarse directamente.
-- Los strings se declaran entre comillas dobles "".
-- Los espacios en blanco, saltos de línea y otros caracteres especiales también son parte del string.
-- Se pueden `concatenar` usando el operador `+` o `fmt.Sprintf()`, que formatea cadenas.
-- Los caracteres entre comillas simples '' se tratan como runas (`rune`), un alias para el tipo int32.
+* Strings en Go: Secuencia de bytes inmutables.
+- Los strings en Go son inmutables y codificados en UTF-8.
+- Se almacenan como una secuencia de bytes, pero no son equivalentes a `[]byte`.
+- Un carácter ASCII ocupa 1 byte, mientras que los caracteres Unicode pueden ocupar entre 1 y 4 bytes en UTF-8.
+- Los strings se definen con comillas dobles ("").
+- Caracteres especiales (saltos de línea, tabulaciones y espacios) forman parte del string.
+- Para concatenar, se usa `+`, `fmt.Sprintf()` o `strings.Builder` (más eficiente para múltiples concatenaciones).
+- Los caracteres entre comillas simples ('') son `rune` (alias de `int32`), representando un solo carácter Unicode.
 
 * Substrings: Son secuencias de caracteres consecutivos que se encuentran dentro del string original.
+
+* Substrings:
+- Un substring es una secuencia consecutiva de caracteres dentro de un string.
+- Los substrings son inmutables: cualquier modificación genera un nuevo string.
 * Substrings únicos: Son substrings que no se repiten.
 
-* Algunas definiciones:
-- Secuencia: Colección ordenada de elementos, uno tras otro.
-- Byte: Es la unidad básica de almacenamiento de datos en una computadora.
-Cada byte contiene 8 bits (donde un bit puede ser 0 o 1). Un byte puede representar un número entre 0 y 255.
-- Codificar: Es el proceso de transformar datos o información a un formato que pueda ser procesado o entendido
-por una máquina o computadora.
-- ASCII: Conjunto de caracteres que usa 7 bits para representar 128 caracteres (0-127), incluyendo letras, números y signos de puntuación.
-- Unicode: Estándar que abarca caracteres de casi todos los idiomas y símbolos, usando hasta 4 bytes para representar caracteres complejos.
-Asigna un número único (código) a cada carácter en casi todos los idiomas del mundo.
-- UTF-8: Es un tipo de codificación que se usa para representar caracteres de texto en una computadora. Incluye
-símbolos de otros idiomas, emojis y caracteres especiales. Puede usar entre 1 y 4 bytes para representar cada carácter.
+* Definiciones clave:
+- Secuencia: Conjunto ordenado de elementos.
+- Byte: Es la unidad básica de almacenamiento de datos en una computadora. Puede representar valores de 0 a 255.
+- Codificación: Es el proceso de transformar datos o información a un formato específico que pueda ser procesado
+o entendido por una máquina o computadora (ej., UTF-8).
+- ASCII: Conjunto de caracteres que usa 7 bits para representar 128 caracteres (0-127),
+incluyendo letras, números y signos de puntuación.
+- Unicode: Estándar que asigna un número único (código) a cada carácter en casi todos los idiomas del mundo.
+- UTF-8: Es un tipo de codificación que se usa para representar caracteres de texto en una computadora.
+Puede usar entre 1 y 4 bytes para representar cada carácter.
 */
 
 func main() {
@@ -42,25 +45,35 @@ func main() {
 	secondName := "Andres"
 	fmt.Printf("tipo: %T - valor: %v\n", secondName, secondName)
 
-	// Interpolación de strings con `fmt.Sprintf()`.
+	//* Interpolación de strings con `fmt.Sprintf()`.
 	// Permite insertar valores dentro de una cadena.
 	fullName := fmt.Sprintf("Mi nombre es %s %s", name, secondName)
 	fmt.Printf("interpolación: %s\n", fullName) // Output: "Mi nombre es Mayer Andres"
 
 	// Modificar un string (convertir a slice de bytes).
 	// Los strings en Go son inmutables, pero se pueden convertir a un slice de bytes para hacer modificaciones.
+	// NO se recomienda hacer este proceso, ya que no es eficiente y puede afectar el rendimiento.
 	cadena := "Hola"
 	bytes := []byte(cadena)                      // Convierte el string en un slice de bytes
 	bytes[0] = 'M'                               // Modifica el primer carácter
 	nuevoString := string(bytes)                 // Convierte de nuevo a string
 	fmt.Printf("nuevoString: %q\n", nuevoString) // "Mola"
 
-	// Obtener la longitud de un string usando la función `len()`.
+	// La función `len()` devuelve el número de bytes, no el número de caracteres reales.
 	fmt.Println("longitud de name:", len(name)) // Output: 5
+	nuevaCadena := "Mayer, 世界"
+	fmt.Println("longitud de nuevaCadena:", len(nuevaCadena)) // Output: 13
+	fmt.Println(utf8.RuneCountInString(nuevaCadena))          // Output: 9 caracteres
 
 	// Concatenar dos strings utilizando el operador +.
 	nameAndSecondName := name + " " + secondName
 	fmt.Println("concatenar strings:", nameAndSecondName) // Output: "Mayer Andres"
+
+	//* Iterar sobre un string con `range`.
+	// Go no itera sobre los bytes de un string, sino sobre sus runas (puntos de código Unicode).
+	for i, char := range name {
+		fmt.Printf("index: %d, char: %d\n", i, char)
+	}
 
 	//* Paquete "strings": Métodos útiles para manipular cadenas.
 
@@ -158,12 +171,25 @@ func main() {
 	}
 	fmt.Printf("tipo: %T - valor: %v\n", age2, age2) // Output: tipo: int - valor: 23
 
-	// Convierte un string que representa un número flotante a tipo float64.
+	// Convierte un string que representa un número flotante a un float64.
 	weight := "70.5"
 	weight2, err := strconv.ParseFloat(weight, 64)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Printf("tipo: %T - valor: %v", weight2, weight2) // Output: tipo: float64 - valor: 70.5
+	fmt.Printf("tipo: %T - valor: %v\n", weight2, weight2) // Output: tipo: float64 - valor: 70.5
+
+	//* Uso de `strings.Builder` para concatenar cadenas de manera eficiente.
+	// Trabaja con un buffer interno que minimiza la creación de nuevos strings, mejorando el rendimiento.
+	var sb strings.Builder
+
+	// `WriteString()` agrega el contenido de la cadena al buffer interno de strings.Builder.
+	sb.WriteString("Hola")
+	sb.WriteString(", ")
+	sb.WriteString("mundo!")
+
+	// `String()` convierte el contenido del buffer interno de strings.Builder en una cadena.
+	resultado := sb.String()
+	fmt.Println(resultado) // Salida: Hola, mundo!
 }
