@@ -5,7 +5,7 @@ func main() {
 
 	/*
 		Comentario de varias líneas.
-		Nada escrito
-		dentro se ejecutará
+		Nada escrito aquí
+		se ejecutara.
 	*/
 }
