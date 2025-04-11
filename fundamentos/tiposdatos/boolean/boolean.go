@@ -2,18 +2,44 @@ package main
 
 import "fmt"
 
+/*
+* Booleanos en Go (bool)
+Un tipo de dato booleano solo puede tener dos valores: `true` (verdadero) o `false` (falso).
+
+¿Para qué se usan?
+- Representan condiciones lógicas, como "¿está activo?" o "¿es mayor de edad?".
+- Se usan comúnmente para controlar el flujo del programa en estructuras como:
+  - if (condicionales)
+  - switch (selección múltiple)
+  - for (bucles)
+- También se utilizan en operaciones lógicas:
+  - `&&` (AND): verdadero si ambas condiciones son verdaderas.
+  - `||` (OR): verdadero si al menos una condición es verdadera.
+  - `!` (NOT): invierte el valor (true pasa a false y viceversa).
+
+Características del tipo `bool` en Go:
+- Es estricto: no puedes convertir un `bool` a otro tipo como entero o cadena (ni viceversa).
+- Go NO hace conversiones automáticas (implícitas), lo que evita errores inesperados.
+- Aunque un booleano solo necesita 1 bit, Go reserva 1 byte (8 bits) por eficiencia,
+ya que los procesadores acceden a la memoria por bytes.
+*/
+
 func main() {
-	// declarando una variable de tipo booleana
+	// Declarando una variable booleana explícitamente con valor `true`.
+	// Si no lo inicializas, su valor por defecto será `false`.
 	var active bool = true
 
-	// Imprime el formato de la variable - %T es para el tipo de dato y %t es para el valor booleano.
-	fmt.Printf("Tipo: %T - Valor: %t\n", active, active)
+	// Imprimimos el valor booleano usando %t (para "true" o "false").
+	fmt.Printf("Valor: %t\n", active)
 
+	// Otra variable booleana, ahora con valor false.
 	var active2 bool = false
 
+	// Mostramos el tipo y el valor de la variable.
 	fmt.Printf("Tipo: %T - Valor: %t\n", active2, active2)
 
-	// active3: Inferiendo el tipo de dato
+	// También puedes declarar una variable booleana sin indicar el tipo explícitamente.
+	// Go infiere automáticamente que es de tipo bool.
 	var active3 = true
-	fmt.Println(active3)
+	fmt.Println("Valor inferido:", active3)
 }
