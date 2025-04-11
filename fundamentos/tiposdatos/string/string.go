@@ -38,8 +38,18 @@ Son substrings que no se repiten.
 * Secuencia:
 Conjunto ordenado de elementos.
 
+* Bit:
+Es la unidad más pequeña de información que usa una computadora.
+- Un bit solo puede tener dos valores: 0 o 1, como un interruptor que está apagado (0) o encendido (1).
+- Los bits se combinan para formar datos más complejos como letras, imágenes o sonidos.
+- Cuando se agrupan 8 bits, forman un `byte`, que ya puede representar información útil como una letra o un color.
+
 * Byte:
-Es la unidad básica de almacenamiento de datos en una computadora. Puede representar valores de 0 a 255 (8 bits).
+Es un grupo de 8 bits.
+- Al juntar 8 valores de 0 o 1, se pueden crear 256 combinaciones diferentes (de 0 a 255).
+Un byte se usa para guardar información como una letra, un número pequeño, o una parte de un color en una imagen.
+Por ejemplo, la letra "A" ocupa 1 byte.
+
 
 * Codificación:
 Es el proceso de `transformar` datos o información a un formato específico que pueda ser procesado
@@ -81,7 +91,7 @@ func main() {
 	fmt.Printf("tipo: %T - valor: %v\n", secondName, secondName)
 
 	//* Interpolación de strings con `fmt.Sprintf()`.
-	// Permite insertar (incrutar) valores dentro de una cadena como variables o expresiones.
+	// Permite insertar (incrustar) valores dentro de una cadena como variables o expresiones.
 	fullName := fmt.Sprintf("Mi nombre es %s %s", name, secondName)
 	fmt.Printf("interpolación: %s\n", fullName) // Output: "Mi nombre es Mayer Andres"
 
@@ -163,7 +173,8 @@ func main() {
 	str9 := strings.Trim(lastname, "!¡")
 	fmt.Println("trim:", str9) // Output: Chaves
 
-	// Une los elementos de un slice en una sola cadena, usando un separador.
+	// Une los elementos de un `slice` en una sola cadena, usando un separador.
+	// Devuelve una nueva cadena con los elementos unidos con el separador.
 	sli := []string{"foo", "bar", "baz"}
 	fmt.Printf("join: %q\n", strings.Join(sli, ", ")) // Output: "foo, bar, baz"
 
@@ -174,7 +185,7 @@ func main() {
 	clone := strings.Clone(animal)
 	fmt.Println("clone:", clone) // Output: "León"
 
-	// Función `Cut` (Nueva en Go 1.18).
+	// Función `Cut` (Go 1.18).
 	// Divide una cadena en dos partes usando un separador.
 	// Retorna la parte antes del separador, la parte después y un booleano que indica si se encontró el separador.
 	s := "Hola mundo"
@@ -184,7 +195,7 @@ func main() {
 	fmt.Println("Después del separador:", after)  // Output: "mundo"
 	fmt.Println("¿Separador encontrado?:", found) // Output: true
 
-	// Función `CutPrefix` (Nueva en Go 1.20).
+	// Función `CutPrefix` (Go 1.20).
 	// Elimina un prefijo específico del inicio de una cadena.
 	// Prefijo: Una cadena que aparece al principio de otra.
 	// Retorna la cadena sin el prefijo y un booleano que indica si el prefijo fue encontrado.
@@ -194,7 +205,7 @@ func main() {
 	fmt.Println("Después del prefijo:", after) // Output: "opher"
 	fmt.Println("¿Prefijo encontrado?:", ok)   // Output: true
 
-	// Función `CutSuffix` (Nueva en Go 1.20).
+	// Función `CutSuffix` (Go 1.20).
 	// Elimina un sufijo específico del final de una cadena.
 	// Sufijo: Una cadena que aparece al final de otra.
 	// Retorna la cadena sin el sufijo y un booleano que indica si el sufijo fue encontrado.
@@ -206,7 +217,7 @@ func main() {
 
 	//* Paquete "strconv": Conversión entre strings y tipos numéricos.
 
-	// Convierte un string que representa un número entero a un tipo int.
+	// Convierte un string que representa un número entero a un tipo `int`.
 	age := "23"
 	age2, err := strconv.Atoi(age)
 	if err != nil {
@@ -215,7 +226,7 @@ func main() {
 	}
 	fmt.Printf("tipo: %T - valor: %v\n", age2, age2) // Output: tipo: int - valor: 23
 
-	// Convierte un string que representa un número flotante a un float64.
+	// Convierte un string que representa un número flotante a un `float64`.
 	weight := "70.5"
 	weight2, err := strconv.ParseFloat(weight, 64)
 	if err != nil {
@@ -225,7 +236,7 @@ func main() {
 	fmt.Printf("tipo: %T - valor: %v\n", weight2, weight2) // Output: tipo: float64 - valor: 70.5
 
 	//* Uso de `strings.Builder` para concatenar cadenas de manera eficiente.
-	// Trabaja con un buffer interno que minimiza la creación de nuevos strings, mejorando el rendimiento.
+	// Trabaja con un `buffer` interno que minimiza la creación de nuevos strings, mejorando el rendimiento.
 	var sb strings.Builder // sb := new(strings.Builder)
 
 	// `WriteString()` agrega el contenido de la cadena al buffer interno de strings.Builder.
