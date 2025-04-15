@@ -6,62 +6,62 @@ import (
 )
 
 /*
-* Goroutines
-Las goroutines son hilos ligeros gestionados por el runtime de Go, que permiten ejecutar funciones de manera concurrente.
+* Goroutines en Go
+Las goroutines son `hilos ligeros` administrados por el runtime de Go que permiten ejecutar funciones
+de manera concurrente.
 
-* Otra definición de goroutine:
-Una goroutine es una función que ejecuta el código en un hilo de ejecución diferente al hilo principal.
+* Definición clara:
+Una goroutine es una función que se ejecuta en un hilo independiente del hilo principal.
 No es un thread del sistema operativo, sino un hilo ligero gestionado por el runtime de Go.
 
-- Las goroutines son muy eficientes en memoria (comienzan con solo 2KB de pila) y permiten ejecutar miles de tareas
-concurrentes sin sobrecargar el sistema.
-- Para iniciar una goroutine, solo necesitas agregar la palabra clave 'go' antes de la llamada a la función.
-- La función `main` se ejecuta como una goroutine principal en todos los programas Go.
-- Es importante recordar que la goroutine `main` no espera automáticamente a que otras goroutines finalicen.
-- El orden de ejecución de las goroutines no está garantizado.
-- Se recomienda usar canales (channels) o el paquete `sync` para sincronizar goroutines en vez de usar `time.Sleep`.
+* Características principales:
+- Eficiencia de memoria: Comienzan con solo 2KB de pila, permitiendo ejecutar miles de tareas
+  concurrentes sin sobrecargar el sistema.
+- Sencillez de uso: Para iniciar una goroutine, solo se añade la palabra clave 'go' antes de llamar a la función.
+- Función principal: El programa comienza con 'main' como goroutine principal.
+- Comportamiento independiente: La goroutine 'main' no espera automáticamente a que otras goroutines terminen.
+- Sin garantía de orden: Las goroutines pueden ejecutarse en cualquier orden.
+- Sincronización recomendada: Es mejor usar canales (channels) o el paquete 'sync' en lugar de 'time.Sleep'.
 
-* Scheduler del runtime de Go - Planificador en tiempo de ejecución de Go
-Cuando lanzas una goroutine, no se ejecuta inmediatamente en un hilo o CPU específico; en su lugar,
-el runtime de Go maneja cuándo y cómo se ejecutará esa goroutine utilizando el modelo GMP (Goroutine, Machine, Processor).
+* Scheduler (Planificador) del runtime de Go
+Cuando lanzas una goroutine, el runtime de Go determina cuándo y cómo se ejecutará
+utilizando el modelo GMP (Goroutine, Machine, Processor).
 
-* ¿Cómo funciona el scheduler del runtime de Go?
-El runtime de Go administra la ejecución de las goroutines y decide cuál debe ejecutarse en un momento dado
-utilizando un conjunto de colas y un modelo de programación basado en el concepto de Goroutines (G),
-Máquinas (M), y Procesadores (P).
+* Funcionamiento del scheduler de Go:
+El planificador administra la ejecución de goroutines mediante colas y un modelo basado en tres componentes:
 
-G: Representa las goroutines.
-M: Son los hilos del sistema operativo que el runtime de Go usa para ejecutar las goroutines.
-P: Son los procesadores (entidades lógicas) que gestionan las colas de goroutines y las asignan
-a los hilos del sistema operativo (M) para su ejecución.
+- G (Goroutine): Representa la tarea a ejecutar.
+- M (Machine): Son los hilos del sistema operativo que ejecutan las goroutines.
+- P (Processor): Son entidades lógicas que gestionan las colas de goroutines y las asignan
+a los hilos del sistema operativo.
 
-- Las goroutines son colocadas en colas de trabajo (work queues) asociadas a los P (Procesadores).
-- Cada (P) tiene su propia cola de goroutines y se asocia con un (M) (hilo del sistema operativo) para ejecutar las goroutines.
-- Múltiples goroutines se ejecutan sobre un número menor de hilos del sistema operativo (M),
+* Proceso de planificación:
+- Cada Processor (P) mantiene su propia cola de goroutines.
+- Los Processors se asocian con Machines (hilos del SO) para ejecutar las goroutines.
+- Múltiples goroutines se ejecutan sobre un número menor de hilos del sistema operativo,
 gracias a la gestión eficiente del scheduler.
-- Si una goroutine realiza una operación bloqueante,
-el scheduler puede reasignar el (M) asociado a otro P y ejecutar otra goroutine en su lugar.
-- El runtime también redistribuye goroutines entre colas locales y globales
-para optimizar el rendimiento y balancear la carga de trabajo de manera eficiente.
+- Si una goroutine se bloquea, el scheduler puede reasignar el hilo (M) a otro Processor
+y ejecutar otra goroutine.
+- El runtime redistribuye goroutines entre colas locales y globales para balancear
+la carga de trabajo eficientemente.
 
-
-NOTA: Si el programa principal (la goroutine `main`) termina antes de que una goroutine hija termine,
-la goroutine hija también terminará inmediatamente, incluso si no ha completado su trabajo.
+IMPORTANTE: Si la goroutine principal ('main') termina antes que una goroutine secundaria,
+esta última también terminará inmediatamente, incluso si no ha completado su tarea.
 */
 
 func main() {
-	// Iniciamos dos goroutines concurrentes.
+	// Iniciamos dos goroutines que se ejecutarán concurrentemente.
 	go goroutine1() // Inicia la primera goroutine
 	go goroutine2() // Inicia la segunda goroutine
 
-	// Este mensaje se imprime desde la goroutine `main`.
+	// Este mensaje se imprime desde la goroutine principal `main`.
 	fmt.Println("Soy el programa principal")
 
-	// Usamos `time.Sleep` para darle tiempo a las goroutines para completar su ejecución.
-	// Este es un método simple pero no ideal para sincronizar goroutines.
+	// Esperamos 2 segundos para dar tiempo a que las goroutines completen su ejecución.
+	// Nota: Este método es simple pero no ideal para sincronizar goroutines.
 	time.Sleep(2 * time.Second)
 
-	// Esta tercera goroutine no tiene tiempo para ejecutarse porque la goroutine `main` terminará.
+	// Esta tercera goroutine no tendrá tiempo para ejecutarse porque 'main' terminará inmediatamente después.
 	go goroutine3()
 }
 
@@ -74,5 +74,5 @@ func goroutine2() {
 }
 
 func goroutine3() {
-	fmt.Println("Soy la tercera goroutine, pero no me verás porque el programa principal termina antes.")
+	fmt.Println("Soy la tercera goroutine, pero no me verás porque el programa principal termina antes")
 }
