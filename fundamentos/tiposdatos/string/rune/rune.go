@@ -11,12 +11,17 @@ import (
 - Una `runa` representa un carácter Unicode y puede ocupar más de un byte en la codificación UTF-8.
 - El valor de una `runa` es el punto de código Unicode del carácter.
 - Es especialmente útil cuando trabajas con texto que incluye caracteres especiales o no latinos.
-- Al usar `rune`, Go permite manejar texto Unicode de manera eficiente.
+- Al usar `rune`, Go permite manejar texto Unicode de manera eficiente, ya que `for range` recorre caracteres
+y no bytes.
 
 * ASCII vs Unicode:
-- Los caracteres ASCII, como las letras 'a', 'n', 'o', 's', y el espacio " ",
+- Los caracteres ASCII, como las letras 'a', , 'o', 's', y el espacio " ",
 se representan con un solo byte (0-127).
-- Los caracteres fuera de ASCII, como 'ñ' o emojis como 👴🏼, pueden requerir varios bytes.
+- Los caracteres fuera del rango ASCII, como 'ñ' o emojis como 👴🏼,
+pueden requerir de 2 a 4 bytes debido a la codificación UTF-8 de longitud variable.
+
+- len(string) cuenta bytes.
+- utf8.RuneCountInString(string) cuenta runes (caracteres Unicode).
 */
 
 func main() {
@@ -36,37 +41,38 @@ func main() {
 	runa := 'a'
 	fmt.Printf("Runa 'a': %d\n", runa) // Output: Runa 'a': 97
 
-	// Ejemplo con un emoji 🍎 (Unicode: U+1F34E)
+	// Ejemplo con un emoji 🍎 (Unicode: U+1F34E).
 	runa2 := '🍎'
 	fmt.Printf("Runa para 🍎: %d\n", runa2) // Output: Runa para 🍎: 127822
 
-	// Cadena con caracteres Unicode.
+	// Cadena con caracteres Unicode (mezcla de ASCII, acentuados y emoji con modificador).
 	s := "años, 👴🏼"
 
-	// Convertimos la cadena en una slice de runas (puntos de código Unicode).
+	// Convertimos la cadena en una slice de runas (Unicode code points).
 	runaSlice := []rune(s)
 	fmt.Println("Runa slice:", runaSlice) // Output: [97 241 111 115 44 32 128116 127996]
 
 	/*
-	   * Desglose de la slice de runas:
-	   97   → 'a'
-	   241  → 'ñ'
-	   111  → 'o'
-	   115  → 's'
-	   44   → ','
-	   32   → (espacio)
-	   128116 → 👴 (anciano)
-	   127996 → tono de piel claro (modificador de emoji)
+	   * Desglose del slice de runas:
+	   97      → 'a'
+	   241     → 'ñ'
+	   111     → 'o'
+	   115     → 's'
+	   44      → ','
+	   32      → espacio
+	   128116  → 👴 (anciano)
+	   127996  → modificador de tono de piel claro
+	   Nota: 👴🏼 es una combinación de dos runas, no una sola.
 	*/
 
-	// Recorriendo la cadena y mostrando la posición en bytes y las runas
+	// Recorriendo la cadena y mostrando la posición en bytes y las runas.
+	/*
+	 El índice `i` representa la posición inicial en bytes de la runa dentro de la cadena UTF-8.
+	 Esto es importante porque caracteres como 'ñ' o emojis ocupan múltiples bytes.
+	*/
 	for i, r := range s {
 		fmt.Printf("Posición en bytes %d, Runa: %c\n", i, r)
 	}
-	/*
-	 La posición en el loop es en bytes, no en caracteres. UTF-8 usa múltiples bytes para algunos caracteres,
-	 por lo que la posición en bytes de cada runa no siempre coincide con la posición en caracteres.
-	*/
 
 	const name = "Mayer"
 
@@ -77,9 +83,7 @@ func main() {
 	// Como todos los caracteres de "Mayer" son ASCII, la cantidad de runas (caracteres) es la misma.
 	fmt.Printf("Número de runas en 'name': %d\n", utf8.RuneCountInString(name)) // Output: 5
 
-	fmt.Println("=====================================")
-
-	// Ahora usamos una cadena que contiene un carácter especial: "Andrés".
+	// Ahora usamos una cadena que contiene un carácter especial: 'é'.
 	const secondName = "Andrés"
 
 	// En UTF-8, la letra 'é' ocupa 2 bytes, mientras que las demás letras ocupan 1 byte cada una.
@@ -88,4 +92,9 @@ func main() {
 
 	// Aunque ocupa 7 bytes, sigue teniendo 6 caracteres visibles (runas).
 	fmt.Printf("Número de runas en 'secondName': %d\n", utf8.RuneCountInString(secondName)) // Output: 6
+
+	fmt.Printf("Character: %s, Bytes: %d\n", "A", len("A")) // Output: 1 byte
+	fmt.Printf("Character: %s, Bytes: %d\n", "ñ", len("ñ")) // Output: 2 bytes
+	fmt.Printf("Character: %s, Bytes: %d\n", "字", len("字")) // Output: 3 bytes
+	fmt.Printf("Character: %s, Bytes: %d\n", "😎", len("😎")) // Output: 4 bytes
 }
