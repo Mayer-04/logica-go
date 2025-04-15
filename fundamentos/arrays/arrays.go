@@ -8,8 +8,7 @@ Los Arrays en Go son estructuras de datos que tienen un tamaño fijo y almacenan
 en ubicaciones de memoria contiguas.
 
 - Los arrays suelen almacenarse en la pila (stack).
-- El tamaño del array es conocido en tiempo de compilación y es parte de su tipo.
-	Ejemplo: `[5]int` y `[3]int` son tipos distintos y no compatibles entre sí.
+- El tamaño del array es conocido en tiempo de compilación y es parte de su tipo. Ejemplo: `[5]int`.
 - `len(arr)` y `cap(arr)` son constantes y siempre iguales al tamaño del array.
 - Los elementos del array se acceden mediante índices,
 donde el primer elemento está en `arr[0]` y el último en `arr[len(arr)-1]`.
@@ -57,7 +56,7 @@ func main() {
 	fmt.Println("array literal de nombres:", namesArray) // Output: [Mayer Andres Chaves]
 
 	// * IMPORTANTE:
-	// Cuando declaramos un array literal: arr := [3]int{1, 2, 3, 4}, lo que realmente sucede es esto:
+	// Cuando declaramos un array literal arr := [3]int{1, 2, 3, 4}, lo que realmente sucede es esto:
 	arr := [4]int{}
 	arr[0] = 1
 	arr[1] = 2
