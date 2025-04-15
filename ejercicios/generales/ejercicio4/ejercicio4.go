@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// Dado un número entero x, devuelve verdadero si x es un palíndromo y falso en caso contrario.
+// Dado un número entero `x`, devuelve verdadero si `x` es un palíndromo y falso en caso contrario.
 
 func main() {
 	number := 121

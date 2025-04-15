@@ -27,7 +27,7 @@ func main() {
 	fmt.Printf("result2: %v", result2) // ["a", "c"]
 }
 
-// Solución 1 utilizando generics ✅
+// Solución 1 utilizando genericos ✅
 func booleanPropertyKeys[K string, V any](obj map[K]V) []K {
 	booleanKeys := make([]K, 0, len(obj))
 
