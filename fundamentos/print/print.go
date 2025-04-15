@@ -22,6 +22,11 @@ Este paquete es muy útil porque nos permite mostrar, formatear y leer informaci
 La diferencia es que `Scan` toma múltiples valores en una sola línea, y `Scanln` solo uno por línea.
 */
 
+type car struct {
+	Modelo string
+	Año    int
+}
+
 func main() {
 	// La función `print()` simplemente imprime sin agregar un salto de línea al final.
 	// No es muy usada porque `fmt` ofrece más opciones.
@@ -42,7 +47,7 @@ func main() {
 
 	// Usando `%q` para imprimir una cadena entre comillas.
 	cadena := "Hola Mundo!"
-	fmt.Printf("Cadena: %q\n", cadena) // "Hola Mundo!"
+	fmt.Printf("Cadena: %q\n", cadena) // Output: "Hola Mundo!"
 
 	// Usando `%d` para imprimir números enteros.
 	edad := 23
@@ -77,15 +82,25 @@ func main() {
 
 	// Usando `%x` para imprimir un valor en formato hexadecimal en letras minúsculas.
 	hexadecimal := 0xff
-	fmt.Printf("Hexadecimal: %x\n", hexadecimal)
+	fmt.Printf("Hexadecimal: %x\n", hexadecimal) // Output: ff
 
 	// Usando `%o` para imprimir un valor en formato octal.
 	octal := 045
-	fmt.Printf("Octal: %o\n", octal)
+	fmt.Printf("Octal: %o\n", octal) // Output: 45
 
 	// Usando `%b` para imprimir un valor en formato binario.
 	binario := 0b1010
-	fmt.Printf("Binario: %b\n", binario)
+	fmt.Printf("Binario: %b\n", binario) // Output: 1010
+
+	// Usando `%p` para imprimir la dirección de memoria de una variable.
+	puntero := &edad
+	fmt.Printf("Dirección de memoria: %p\n", puntero) // Output: 0xc00000a0e8
+
+	// Usando `%v`, `%+v` y `%#v` para imprimir estructuras.
+	toyota := car{"Toyota Corolla", 2019}
+	fmt.Printf("Estructura toyota: %v\n", toyota)  // Output: {Toyota Corolla 2019}
+	fmt.Printf("Estructura toyota: %+v\n", toyota) // Output: {Modelo:Toyota Corolla Año:2019}
+	fmt.Printf("Estructura toyota: %#v\n", toyota) // Output: main.Car{Modelo:"Toyota Corolla", Año:2019}
 
 	//* ENTRADA DE DATOS DESDE LA CONSOLA:
 
