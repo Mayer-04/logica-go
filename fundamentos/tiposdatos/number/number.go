@@ -6,7 +6,7 @@ import (
 
 /*
 * Números en Go
-En Go, los números se representan con diferentes tipos de datos: `int`, `uint`, `float32` y `float64`.
+En Go, los números se representan con diferentes tipos de datos: `int`, `uint`, `float32`, `float64`, etc.
 
 - Si definimos `uint` o `int`, el tamaño del valor dependerá del sistema operativo: 32 bits o 64 bits.
 - Para mejorar la legibilidad de números grandes, podemos utilizar el guion bajo `_`.
@@ -28,7 +28,7 @@ func main() {
 
 	// Números decimales de 32 bits.
 	var number3 float32 = 10.5
-	fmt.Printf("Tipo: %T - Valor: %f\n", number3, number3) // Output: Tipo: float32 - Valor: 10.500000
+	fmt.Printf("Tipo: %T - Valor: %.1f\n", number3, number3) // Output: Tipo: float32 - Valor: 10.5
 
 	// Números decimales de 64 bits.
 	var number4 float64 = 10.5555
@@ -48,12 +48,12 @@ func main() {
 	var scientificNo int = 1e3                           // 1e3 significa 1 × 10³, es decir, 1000.
 	fmt.Printf(("%T: %d\n"), scientificNo, scientificNo) // Output: int: 1000
 
-	var scientificSmall = 5e-3                                 // 5 × 10^-3 = 0.005
-	fmt.Printf(("%T: %f\n"), scientificSmall, scientificSmall) // Output: float64: 0.005000
+	var scientificSmall = 5e-3                                   // 5e-3 significa 5 × 10^-3, es decir, 0.005
+	fmt.Printf(("%T: %.3f\n"), scientificSmall, scientificSmall) // Output: float64: 0.005
 
 	// Valores especiales en operaciones con flotantes.
 	zero := 0.0
-	fmt.Println("División de 1 entre 0:", 1/zero)    // +Inf
-	fmt.Println("División de -1 entre 0:", -1/zero)  // -Inf
-	fmt.Println("División de 0 entre 0:", zero/zero) // NaN
+	fmt.Println("División de 1 entre 0:", 1/zero)    // Output: +Inf
+	fmt.Println("División de -1 entre 0:", -1/zero)  // Output: -Inf
+	fmt.Println("División de 0 entre 0:", zero/zero) // Output: NaN
 }
