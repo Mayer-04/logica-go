@@ -44,11 +44,12 @@ func main() {
 	fmt.Println("División:", division2) // Output: 19.05
 
 	// Módulo o Resto de enteros.
+	// Devuelve el resto de la división.
 	modulo := 10 % 5
 	fmt.Println("Modulo:", modulo) // Output: 0
 
 	//* Ejemplo del orden de ejecución de las operaciones.
-	// Primero se realiza la operación que esta entre parentesis y luego se multiplica por 2.
+	// Primero se realizan las operaciones que estan entre parentesis y luego se multiplica por 2.
 	ejemplo := (2 + 3) * 2
 	fmt.Println("Ejemplo:", ejemplo) // Output: 10
 }
