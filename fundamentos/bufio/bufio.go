@@ -273,7 +273,7 @@ func ejemploPeek() {
 	}
 }
 
-// ejemploNewScanner demuestra el uso de bufio.Scanner
+// ejemploNewScanner demuestra el uso de bufio.Scanner.
 func ejemploNewScanner() {
 	fmt.Println("\n8. EJEMPLO DE bufio.Scanner")
 	fmt.Println("-------------------------")
