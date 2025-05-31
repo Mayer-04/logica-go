@@ -1,6 +1,7 @@
 # Concatenación de cadenas en Go: Cómo unir múltiples cadenas de manera eficiente
 
-En Go, concatenar cadenas, es decir, unir varias cadenas en una sola, se puede realizar de varias formas. Una de las más simples es usar el operador `+=`:
+En Go, concatenar cadenas, es decir, unir varias cadenas en una sola, se puede realizar de varias formas.
+Una de las más simples es usar el operador `+=`:
 
 ```go
 package main
@@ -117,11 +118,11 @@ func main() {
 }
 ```
 
-### Uso de strings.Join
+### Uso de strings.Join()
 
-`strings.Join` es una función que toma un slice de cadenas y las une en una sola cadena, usando el segundo argumento como **separador**.
+`strings.Join()` es una función que toma un slice de cadenas y las une en una sola cadena, usando el segundo argumento como **separador**.
 
-Al usar `strings.Join`, Go optimiza la concatenación internamente, evitando las múltiples asignaciones de memoria y copias que ocurren con el operador `+=`.
+Al usar `strings.Join()`, Go optimiza la concatenación internamente, evitando las múltiples asignaciones de memoria y copias que ocurren con el operador `+=`.
 
 **IMPORTANTE:** Internamente, el método `Join` del paquete strings implementa `strings.Builder` y sus funciones, lo que le permite realizar la concatenación de manera eficiente.
 
@@ -141,11 +142,11 @@ func main() {
 }
 ```
 
-## Uso de fmt.Sprintf para concatenación
+## Uso de fmt.Sprintf() para concatenación
 
-Otra forma común de concatenar cadenas en Go es utilizando `fmt.Sprintf`, que es útil cuando se necesita formatear las cadenas al mismo tiempo.
+Otra forma común de concatenar cadenas en Go es utilizando `fmt.Sprintf()`, que es útil cuando se necesita formatear las cadenas al mismo tiempo.
 
-`fmt.Sprintf` es ideal cuando necesitas incluir variables de distintos tipos en una cadena o cuando el formato de la cadena es importante.
+`fmt.Sprintf()` es ideal cuando necesitas incluir variables de distintos tipos en una cadena o cuando el formato de la cadena es importante.
 
 ```go
 package main
@@ -159,4 +160,4 @@ func main() {
 }
 ```
 
-Aunque `fmt.Sprintf` es más versátil y puede ser más legible en casos simples o cuando se requiere formateo, no es muy eficiente.
+Aunque `fmt.Sprintf()` es más versátil y puede ser más legible en casos simples o cuando se requiere formateo, no es muy eficiente.

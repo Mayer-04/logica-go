@@ -29,7 +29,7 @@ for i := 1; i <= 5; i++ {
 
 Este ejemplo imprimirá los números del 1 al 5.
 
-## Variantes del Bucle `for`
+## Variantes del bucle `for`
 
 ### Bucle estilo `while`
 

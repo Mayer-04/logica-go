@@ -1,4 +1,4 @@
-# Pilares de la Programación Orientada a Objetos en Go
+# Pilares de la programación orientada a objetos en Go
 
 Go a diferencia de otros lenguajes orientados a objetos como Java o C++, no tiene una implementación directa de **clases o herencia clásica**. Sin embargo, sigue ofreciendo los pilares fundamentales de la `POO` mediante diferentes mecanismos. A continuación se describen estos pilares y cómo se implementan en Go.
 

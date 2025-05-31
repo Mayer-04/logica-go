@@ -1,8 +1,8 @@
-# Características Clave y Convenciones en Go
+# Convenciones esenciales y características clave del lenguaje Go
 
-## Manejo de Errores
+## Manejo de errores en Go
 
-### Prefijo “Err”
+### Variables de error con prefijo `Err`
 
 En Go, es una convención que las variables de error comiencen con el prefijo `Err`. Esto facilita la identificación de las variables que representan errores y hace que el código sea más legible.
 
@@ -10,9 +10,9 @@ En Go, es una convención que las variables de error comiencen con el prefijo `E
 var ErrInvalidInput = errors.New("entrada inválida")
 ```
 
-## Nombres de Funciones
+## Nombres de funciones en Go
 
-### Convención CamelCase
+### Convención camelCase
 
 Las funciones en Go siguen la convención `camelCase`. Las funciones exportadas deben comenzar con mayúscula **(UpperCamelCase)**, mientras que las funciones internas del paquete deben iniciar con minúscula.
 
@@ -24,7 +24,7 @@ func FetchUserDetails() {}
 func fetchUserDetails() {}
 ```
 
-### Uso de Verbos
+### Uso de verbos
 
 Se recomienda que los nombres de las funciones comiencen con verbos para indicar claramente su propósito. Por ejemplo, es preferible GetUser en lugar de User.
 
@@ -36,7 +36,7 @@ func GetUser() {}
 func User() {}
 ```
 
-## Importaciones de Paquetes
+## Importaciones de paquetes
 
 ### Importación con `_`
 
@@ -60,16 +60,18 @@ func main() {
 }
 ```
 
-## Variables de Entorno
+## Variables de entorno
 
-### Configuración de Compilación
+### Configuración de compilación
 
 Algunas de las variables de entorno más comunes son:
 
-- GOOS=windows (Sistema operativo)
-- GOARCH=amd64 (Arquitectura del procesador)
+```bash
+GOOS=windows # Sistema operativo.
+GOARCH=amd64 # Arquitectura del procesador.
+```
 
-### Compilación Cruzada en Go (Cross-Compilation)
+### Compilación cruzada en Go (Cross-Compilation)
 
 Go permite la compilación cruzada, lo que significa que puedes compilar tu código en una máquina y generar un ejecutable para otro sistema operativo o arquitectura.
 
@@ -111,7 +113,7 @@ go run --work hello.go
 
 Esto te mostrará la ruta del binario temporal antes de ejecutarlo.
 
-## Tamaño de un Archivos en Linux
+## Tamaño de un archivo en linux
 
 Para conocer el `tamaño de un archivo` en Linux, puedes usar los siguientes comandos:
 

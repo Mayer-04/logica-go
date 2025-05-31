@@ -1,6 +1,6 @@
-# Buenas Prácticas en Go
+# Buenas prácticas en Go
 
-## Punto y Coma
+## Punto y coma
 
 En Go, los puntos y comas (;) son opcionales y el compilador los inserta automáticamente durante la compilación.
 
@@ -31,14 +31,14 @@ func main() {
 }
 ```
 
-## Nombres de Paquetes
+## Nombres de paquetes
 
 Los nombres de paquetes en Go deben ser cortos, claros y en minúsculas, evitando convenciones como `snake_case` o `camelCase`. Nombres como `utils`, `common,` `helpers`, etc., deben evitarse ya que no indican claramente la funcionalidad del paquete.
 
 > [!NOTE]
 > Algunos buenos nombres de paquetes pueden ser: parser, auth, logger, etc.
 
-## La Mejor Forma de Inicializar un Slice en Go
+## La mejor forma de inicializar un slice en Go
 
 Inicializar correctamente un slice en Go es crucial para el rendimiento de tu programa. Una mala inicialización puede llevar a reasignaciones innecesarias de memoria y sobrecargar el recolector de basura (GC), lo que afecta negativamente la eficiencia.
 
@@ -51,7 +51,7 @@ Si sabes cuántos elementos tendrá el slice desde el inicio, define su **longit
 slice := make([]int, 10) // Crea un slice con 10 elementos, longitud 10 y capacidad 10
 ```
 
-Si planeas añadir más elementos al slice, es recomendable inicializarlo con una longitud inicial de 0 pero con una capacidad mayor. Esto evita reasignaciones al utilizar la función `append()`.
+Si planeas añadir más elementos al slice, es recomendable inicializarlo con una **longitud inicial de 0** pero con una capacidad mayor. Esto evita reasignaciones al utilizar la función `append()`.
 
 ```go
 // Inicialización con longitud 0 pero capacidad 10
@@ -64,9 +64,9 @@ for i := 1; i <= 10; i++ {
 fmt.Println(slice) // Output: [1 2 3 4 5 6 7 8 9 10]
 ```
 
-En este ejemplo, el slice se inicializa con longitud 0 pero con capacidad 10, permitiendo añadir elementos sin reasignaciones hasta alcanzar la capacidad.
+En este ejemplo, el slice se inicializa con **longitud 0** pero con **capacidad 10**, permitiendo añadir elementos sin reasignaciones hasta alcanzar la capacidad.
 
-### Ventajas de Inicializar un Slice con Mayor Capacidad
+### Ventajas de inicializar un slice con mayor capacidad
 
 Inicializar un slice con una capacidad mayor a su longitud inicial es beneficioso cuando planeamos añadir elementos. Esto evita múltiples reasignaciones de memoria y mejora el rendimiento.
 
@@ -80,7 +80,7 @@ slice := make([]int, 5, 10) // Longitud inicial de 5 y capacidad de 10
 - Si conocemos la longitud final del slice y no planeamos usar `append()` para agregar elementos, inicializarlo con una longitud específica es más eficiente.
 - Si el slice va a crecer dinámicamente, inicializarlo con una capacidad que prevea el crecimiento puede evitar múltiples reasignaciones de memoria, mejorando el rendimiento.
 
-## Desempaquetar Elementos de un Slice
+## Desempaquetar elementos de un slice
 
 Cuando utilizas los tres puntos **(...)** después de un slice, estás **desempaquetando** los elementos del slice, es decir, estás expandiendo el slice en una lista de sus elementos individuales. Esto es útil en situaciones donde necesitas pasar cada elemento del slice como un argumento separado a una función.
 
@@ -103,27 +103,30 @@ func main() {
 }
 ```
 
-## Manejo de Errores en Go con fmt.Errorf, el Verbo %w y errors.Join
+## Manejo de errores en Go con fmt.Errorf(), el verbo %w y errors.Join()
 
-Desde **Go 1.13**, puedes añadir contexto a los errores sin perder la información original usando `fmt.Errorf()` con el verbo `%w`. En **Go 1.20**, se introdujo `errors.Join()` para agrupar múltiples errores.
+Desde **Go 1.13**, puedes añadir contexto a los errores sin perder la información original usando `fmt.Errorf()` con el verbo `%w`.
 
-### Formato de los Mensajes de Error
+### Formato de los mensajes de error
 
-Es recomendable escribir los mensajes de error en **minúsculas** para mantener la consistencia, especialmente cuando los mensajes de error se combinan o se muestran juntos. A diferencia de otros lenguajes de programación donde es común **capitalizar** la primera letra de los mensajes de error, en Go se prefiere que comiencen en **minúscula**, salvo que inicien con un _nombre propio_ o una _abreviatura_.
+Go recomienda escribir los mensajes de error en **minúsculas** para mantener la consistencia, especialmente cuando los mensajes de error se combinan o se muestran juntos. A diferencia de otros lenguajes de programación donde es común **capitalizar** la primera letra de los mensajes de error, en Go se prefiere que comiencen en **minúscula**, salvo que inicien con un _nombre propio_ o una _abreviatura_.
 
 **Envolver un error:**
 
 ```go
+// ✅
 fmt.Errorf("failed to do something: %w", err)
 ```
 
-**Unir errores**:
+**Unir errores:**
+
+En **Go 1.20**, se introdujo `errors.Join()` el cual permite combinar múltiples errores en uno solo. Esto es útil cuando quieres devolver un único error pero necesitas comunicar que ocurrieron varios problemas simultáneamente.
 
 ```go
 errors.Join(err1, err2)
 ```
 
-**¿Por Qué Envolver Errores?**
+**¿Por qué envolver errores?**
 
 Envolver errores proporciona más contexto sobre dónde y por qué ocurrió el error, lo que facilita la depuración. El verbo `%w` permite mantener el error original, útil para inspección con `errors.Is` y `errors.As`.
 
@@ -145,13 +148,13 @@ Cuando Go compila el código, intenta inlinear las funciones para mejorar el ren
 - `new(T)` solo asigna espacio para un valor del `tipo T` y devuelve un puntero a la memoria asignada
 - `&T{}` permite inicializar campos específicos de T en la misma línea.
 
-## Construir un Binario más Óptimo en Go
+## Construir un binario más óptimo en Go
 
 Al construir un binario en Go, puedes utilizar los flags `-s` y `-w` para reducir su tamaño. Estos flags son opciones para el compilador de Go que eliminan información no esencial para la ejecución del binario, como la información de depuración.
 
 **Depuración:** Es el proceso de **identificar y corregir errores** o comportamientos inesperados en un programa.
 
-### Flags para Reducir el Tamaño del Binario
+### Flags para reducir el tamaño del binario
 
 - `-s:` Elimina la tabla de símbolos del binario.
 - `-w:` Elimina la información de depuración.
@@ -162,7 +165,7 @@ Al construir un binario en Go, puedes utilizar los flags `-s` y `-w` para reduci
 
 **Nota Importante:** La eliminación de la tabla de símbolos y la información de depuración no afecta la ejecución del binario. El programa funcionará igual, pero será más difícil de depurar en caso de errores.
 
-### Cómo Usar los Flags en la Línea de Comandos
+### Cómo usar los flags en la línea de comandos
 
 Para utilizar estos flags al construir tu binario, añádelos a la línea de comandos de `go build`. Aquí tienes ejemplos de cómo hacerlo:
 
@@ -178,13 +181,13 @@ go build -ldflags="-s -w" example.go
 go build -ldflags="-s -w" -o my-binary example.go
 ```
 
-### Explicación de los Comandos
+### Explicación de los comandos
 
 - `go build:` Es el comando utilizado en el lenguaje de programación Go para compilar el código fuente en un binario ejecutable.
 - `-ldflags:` Permite pasar flags específicos al proceso de enlace (linking) del compilador. Esto se utiliza para optimizar el tamaño y el rendimiento del binario.
 - `-o:` Es una opción que define el nombre del binario resultante.
 
-### Desactivar CGO (Opcional)
+### Desactivar CGO (opcional)
 
 `CGO` es una característica de Go que permite a tu programa interactuar con código escrito en `C` u otros lenguajes que pueden compilarse en un formato compatible con `C`.
 
@@ -194,19 +197,19 @@ Si no necesitas interoperabilidad con código `C`, puedes desactivar _CGO_ utili
 CGO_ENABLED=0 go build -ldflags="-s -w" -o my-binary example.go
 ```
 
-### Beneficios de Desactivar CGO
+### Beneficios de desactivar CGO
 
 - **Binario más pequeño:** El compilador de Go no incluye dependencias ni código C en el binario resultante. Esto generalmente da como resultado un binario más ligero, ya que todo el código está escrito en Go puro.
 - **Compilación más rápida:** Al no tener que enlazar con bibliotecas C ni ejecutar un compilador C, el proceso de compilación suele ser más rápido.
 - Especialmente útil en entornos controlados como contenedores `Docker`, donde la simplicidad y la portabilidad son clave.
 
-### Consideraciones al Desactivar CGO
+### Consideraciones al desactivar CGO
 
 - **Dependencias en C:** Si tu proyecto depende de bibliotecas escritas en C, no podrás usarlas si CGO está desactivado.
 - **Funcionalidad del sistema operativo:** Algunas características específicas del sistema operativo, especialmente las que son de bajo nivel, pueden no estar disponibles directamente en Go sin CGO.
 - CGO puede ser necesario para utilizar ciertas librerías del sistema operativo o interactuar con componentes nativos de hardware, lo que podría ser una limitación en algunos casos específicos.
 
-### ¿Cuándo Desactivar CGO?
+### ¿Cuándo desactivar CGO?
 
 **Desactivar CGO es recomendable cuando:**
 

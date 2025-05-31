@@ -1,4 +1,4 @@
-# Paquetes y Módulos en Go
+# Paquetes y módulos en Go
 
 ## Paquetes en Go
 
@@ -32,7 +32,7 @@ El archivo `go.mod` se crea en proyectos que requieran dependencias externas.
 module github.com/Mayer-04/Logica-go
 
 // Versión de Go que se está utilizando en el proyecto.
-go 1.23.0
+go 1.25.0
 
 // Dependencias requeridas.
 require (
@@ -42,7 +42,7 @@ require (
 )
 ```
 
-## Comandos Importantes de Go
+## Comandos importantes de Go
 
 ### go mod init
 
@@ -64,7 +64,7 @@ go build
 
 ### go get
 
-Se utiliza para descargar e instalar dependencias externas. También actualiza el archivo `go.mod` con las versiones necesarias de las dependencias. A partir de **Go 1.16**, se recomienda usar `go install` en lugar de `go get` para instalar paquetes ejecutables.
+Este comando se utiliza para descargar e instalar dependencias externas. También actualiza el archivo `go.mod` con las versiones necesarias de las dependencias. A partir de **Go 1.16**, se recomienda usar `go install` en lugar de `go get` para instalar paquetes ejecutables.
 
 > [!NOTE]
 > El flag `-u` actualiza las dependencias a sus últimas versiones disponibles.

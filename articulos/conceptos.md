@@ -18,7 +18,7 @@ También puedes pensar en una persona que atiende varias llamadas telefónicas. 
 
 ## Paralelismo
 
-El paralelismo consiste en ejecutar múltiples tareas simultáneamente (al mismo tiempo), aprovechando múltiples núcleos o procesadores para mejorar el rendimiento.
+El paralelismo consiste en ejecutar múltiples tareas simultáneamente (al mismo tiempo), aprovechando múltiples núcleos o procesadores de nuestra computadora para mejorar el rendimiento.
 
 **Ejemplos cotidianos:**
 
