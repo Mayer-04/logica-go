@@ -13,7 +13,15 @@ import (
 Los canales en Go permiten la comunicación y sincronización entre goroutines,
 facilitando el intercambio seguro de datos.
 
-- Los canales se crean con la función `make()`, y su tipo de dato es `chan`.
+En lugar de usar técnicas tradicionales de sincronización (como mutex) para proteger memoria compartida,
+los canales permiten que las gorrutinas compartan memoria a través de la comunicación.
+
+* Tipos de canales
+- chan T: Canal bidireccional (puede enviar y recibir valores de tipo T).
+- chan<- T: Canal de solo envío (solo puede enviar valores).
+- <-chan T: Canal de solo recepción (solo puede recibir valores).
+
+- Los canales se crean con la función `make()` y su tipo de dato es `chan`.
 - El operador `<-` se usa para enviar datos a un canal (canal <- dato) y también
 para recibir datos de un canal (dato <- canal).
 - Un canal declarado pero no inicializado es `nil`.
@@ -41,9 +49,26 @@ Significa notificar a una goroutine (o a varias) que un evento ha ocurrido, sin 
 Sin embargo, en algunos casos no necesitamos enviar datos, sino solo indicar que algo ha ocurrido.
 - 'chan struct{}' nos permite señalizar eventos sin desperdiciar memoria.
 - Es más eficiente que 'chan bool' porque no consume memoria.
+
+* Cerrar un canal: close()
+- Solo se pueden cerrar canales que NO sean de solo recepción.
+- Cerrar un canal nil o ya cerrado causa panic.
+
+
+* Transferencia de Valores
+Copia de Valores
+
+- Los valores se copian cuando se transfieren entre gorrutinas.
+- Para canales con buffer: dos copias (emisor→buffer, buffer→receptor).
+- Para canales sin buffer: una copia (emisor→receptor directamente).
+- Solo se copia la parte directa del valor.
 */
 
 func main() {
+	// Valor cero de un canal es nil.
+	var channel chan int             // ch3 == nil
+	fmt.Println("channel:", channel) // Output: <nil>
+
 	// Creando un canal de tipo string.
 	ch := make(chan string)
 
@@ -112,7 +137,7 @@ func main() {
 	go func() {
 		fmt.Println("Goroutine en ejecución")
 		// Cuando `close` es ejecutado, `main()` detecta que el canal se cerró y puede seguir ejecutando.
-		close(done) // 🔴 No enviamos datos, solo cerramos el canal
+		close(done) // 🔴 No enviamos datos, solo cerramos el canal.
 	}()
 
 	// No recibe datos, solo detecta que el canal fue cerrado.

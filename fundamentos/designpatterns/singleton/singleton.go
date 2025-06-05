@@ -24,15 +24,14 @@ concurrentes, ejecutando la función de inicialización una única vez.
 */
 
 // database es una estructura que encapsula la conexión a la base de datos.
-type database struct {
+type Database struct {
 	Conn *sql.DB
 }
 
 // Las variables globales pueden ser peligrosas ya que cualquier parte del código puede modificar su contenido.
-// Sin embargo, con el patrón Singleton, controlamos y limitamos este acceso.
 var (
 	// dbInstance almacena la única instancia de la estructura database.
-	dbInstance *database
+	dbInstance *Database
 	// once se utiliza para asegurarse de que la instancia de la base de datos solo se inicialice una vez.
 	once sync.Once
 )
@@ -40,7 +39,7 @@ var (
 // connectionDB configura y establece una conexión con la base de datos PostgreSQL.
 // Si la conexión es exitosa, la instancia se almacena en la variable dbInstance.
 // En caso de error al abrir la conexión o al verificarla (ping), el programa se termina con un mensaje de error.
-func connectionDB() {
+func connectionDB() *Database {
 	// Configuración de la cadena de conexión a PostgreSQL.
 	connStr := "user=youruser dbname=yourdb password=yourpassword host=localhost sslmode=disable"
 	// Intenta abrir una conexión con la base de datos.
@@ -49,21 +48,23 @@ func connectionDB() {
 		log.Fatalf("Error al abrir la conexión a la base de datos: %v", err)
 	}
 
-	// Verifica si la conexión es válida realizando un ping a la base de datos.
+	// Verifica si la conexión con la base de datos es válida y está activa.
+	// db.PingContext()
 	if err := db.Ping(); err != nil {
 		log.Fatalf("Error al hacer ping a la base de datos: %v", err)
 	}
 
 	// Asigna la conexión a la instancia singleton.
-	dbInstance = &database{db}
-	log.Println("Conexión a la base de datos establecida exitosamente.")
+	return &Database{Conn: db}
 }
 
 // GetDBInstance devuelve la instancia única de la conexión a la base de datos.
 // Utiliza `sync.Once` para asegurar que la instancia solo se cree una vez, incluso en un entorno concurrente.
-func GetDBInstance() *database {
-	// La función connectionDB solo se ejecuta una vez, gracias a sync.Once.
-	once.Do(connectionDB)
+func GetDBInstance() *Database {
+	// La función connectionDB solo se ejecuta una vez, gracias a `sync.Once`.
+	once.Do(func() {
+		dbInstance = connectionDB()
+	})
 	return dbInstance
 }
 

@@ -46,7 +46,7 @@ func main() {
 	}
 
 	// Registra un mensaje en la consola utilizando slog cuando el servidor se inicia.
-	logger.Info("servidor iniciado", "puerto", addr)
+	logger.Info("Iniciando servidor", "puerto", addr)
 
 	// Iniciamos el servidor web en el puerto especificado.
 	if err := server.ListenAndServe(); err != nil {

@@ -24,7 +24,7 @@ en el array original dentro de la función.
 func main() {
 	// Array sin asignación de valores.
 	// Los elementos del array se inicializan con el valor cero del tipo de dato correspondiente.
-	// En este caso array tiene 2 elementos que corresponden al valor cero del tipo de dato `bool`.
+	// En este caso `array` tiene 2 elementos que corresponden al valor cero del tipo de dato `bool`.
 	var array [2]bool
 	fmt.Println("array sin asignación de valores:", array) // Output: [false false]
 
@@ -40,12 +40,12 @@ func main() {
 
 	//* IMPORTANTE: Los arrays son secuencias contiguas de elementos almacenados uno tras otro en la memoria.
 	byteArray := [5]byte{0, 1, 2, 3, 4}
-	println("byteArray", &byteArray)       // Output: 0xc000027b71
-	println("byteArray[0]", &byteArray[0]) // Output: 0xc000027b71
-	println("byteArray[1]", &byteArray[1]) // Output: 0xc000027b72
-	println("byteArray[2]", &byteArray[2]) // Output: 0xc000027b73
-	println("byteArray[3]", &byteArray[3]) // Output: 0xc000027b74
-	println("byteArray[4]", &byteArray[4]) // Output: 0xc000027b75
+	fmt.Println("byteArray", &byteArray)       // Output: 0xc000027b71
+	fmt.Println("byteArray[0]", &byteArray[0]) // Output: 0xc000027b71
+	fmt.Println("byteArray[1]", &byteArray[1]) // Output: 0xc000027b72
+	fmt.Println("byteArray[2]", &byteArray[2]) // Output: 0xc000027b73
+	fmt.Println("byteArray[3]", &byteArray[3]) // Output: 0xc000027b74
+	fmt.Println("byteArray[4]", &byteArray[4]) // Output: 0xc000027b75
 
 	// Ejemplo de uso de la función `len()` para obtener la longitud del array.
 	fmt.Println("longitud del array de números:", len(numbers)) // Output: 5
@@ -55,8 +55,8 @@ func main() {
 	namesArray := [3]string{"Mayer", "Andres", "Chaves"}
 	fmt.Println("array literal de nombres:", namesArray) // Output: [Mayer Andres Chaves]
 
-	// * IMPORTANTE:
-	// Cuando declaramos un array literal arr := [3]int{1, 2, 3, 4}, lo que realmente sucede es esto:
+	// * IMPORTANTE: Cuando declaramos un array literal arr := [3]int{1, 2, 3, 4},
+	// lo que realmente sucede es esto:
 	arr := [4]int{}
 	arr[0] = 1
 	arr[1] = 2

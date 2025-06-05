@@ -14,6 +14,14 @@ Se utiliza para escuchar múltiples canales al mismo tiempo.
 - El `default` se ejecuta inmediatamente si ningún canal tiene un valor listo (no espera).
 - Usar `default` es útil cuando: No quieres que el programa se quede bloqueado esperando datos en un canal.
 
+* Reglas del select
+- No se permiten expresiones después de select.
+- No se permite fallthrough.
+- Cada `case` debe ser una operación de canal.
+- Si hay operaciones no-bloqueantes, se elige una aleatoriamente.
+- Si todas son bloqueantes y hay `default`, se ejecuta el default.
+- Si no hay `default`, la gorrutina se bloquea.
+
 
 * IMPORTANTE
 - time.Tick(500 * time.Millisecond) // Envía valores cada 500ms (no usar en producción sin cerrar, puede causar fugas de memoria)

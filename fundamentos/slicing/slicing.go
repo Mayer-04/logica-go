@@ -6,11 +6,12 @@ import "fmt"
 * Slicing en Go
 Es utilizado para obtener una parte de una secuencia de elementos a partir de un slice o string.
 
-- `Slicing` es el proceso de crear un nuevo slice a partir de un slice existente.
-- El slicing crea un nuevo slice que 'apunta' al mismo array subyacente que el original,
-por lo que si modificas uno de los elementos del nuevo slice, estás modificando el array original.
-- Puedes aplicar el slicing directamente sobre otro slice.
-- El slicing en strings te permite crear una nueva 'subcadena' a partir de una cadena.
+1. `Slicing` es el proceso de crear un nuevo slice a partir de un slice existente.
+2. Cuando haces un "slicing" de otro slice en Go, no se crea una copia nueva.
+- Ambos slices usan el mismo arreglo en el fondo.
+- Eso significa que si cambias un valor en el nuevo slice, también cambias el original.
+3. Puedes aplicar el slicing directamente sobre otro slice.
+4. El slicing en strings te permite crear una nueva 'subcadena' a partir de una cadena.
 
 * Algunos conceptos útiles:
 - Incluido: Significa que ese índice sí forma parte del resultado.
@@ -18,15 +19,22 @@ por lo que si modificas uno de los elementos del nuevo slice, estás modificando
 no se incluye en el resultado. Por lo que seria algo como el índice - 1.
 
 * Slicing básico: arr[start:end]
-- start: índice de inicio (incluido).
-- end: índice final (excluido).
+- start: Índice de inicio (incluido).
+- end: Índice final (excluido).
 
-* Slicing avanzado: s[start:end:cap]
-- Permite especificar un tercer argumento que limita la **capacidad** del nuevo slice.
-- `start`: índice de inicio (incluido).
-- `end`: índice de fin (excluido).
-- `cap`: índice límite de capacidad. La capacidad del nuevo slice será `cap - start`.
-NOTA: No es el valor de la capacidad directamente, sino el índice hasta el cual se limita la capacidad.
+* Slicing avanzado en Go (s[start:end:cap]).
+
+Puedes usar tres valores al hacer un slice:
+
+* start:end:cap
+
+Esto sirve para limitar la capacidad del nuevo slice.
+- start: Desde qué posición empiezas (incluida).
+- end: Hasta dónde cortas (excluida).
+- cap: Hasta qué posición se puede crecer el nuevo slice.
+
+👉 La capacidad del nuevo slice será: cap - start
+(No es la capacidad directamente, sino el índice límite).
 */
 
 func main() {
@@ -58,7 +66,7 @@ func main() {
 	// El slicing te permite crear una nueva 'subcadena', pero no puedes cambiar el contenido de la cadena original.
 	// Esto se debe a que los strings son inmutables.
 	cadena := "Bienvenidos a Go"
-	subcadena := cadena[0:11]
+	subcadena := cadena[:11]
 	fmt.Printf("subcadena: %q\n", subcadena) // "Bienvenidos"
 
 	str := "Go es genial"

@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"log/slog"
 	"net/http"
+	"os"
 	"strconv"
 )
 
@@ -30,18 +30,24 @@ procesando la información recibida y generando una respuesta para el cliente.
 
 * Rutas (Routes):
 - Las rutas son patrones de URL que dirigen las solicitudes HTTP a los manejadores correspondientes.
-- Cada ruta se asocia con un manejador específico,
-lo que permite que diferentes URLs desencadenen diferentes comportamientos en el servidor.
+- Cada ruta se asocia a un manejador específico, lo que permite que el servidor responda de manera
+diferente según la URL solicitada.
+- Por ejemplo, la ruta `/usuarios` puede listar todos los usuarios.
+
 
 * Algunos conceptos a tener en cuenta:
 - Escribir datos: Consiste en enviar o transferir información desde un programa (como un servidor)
 a un cliente HTTP, una conexión de red, un archivo o un buffer.
+
 - fmt.Fprintf(): Permite escribir datos formateados a un destino, que puede ser un archivo, una conexión de red o un buffer.
 El primer argumento es un 'io.Writer', que determina el destino de la escritura.
+
 - http.Error(): Envía un mensaje de error al cliente como parte de la respuesta HTTP,
 junto con el código de estado correspondiente.
+
 - w.Write(): Escribe datos en una respuesta HTTP que se enviará al cliente. El argumento que toma es un []byte,
 que generalmente representa datos binarios o texto. Estos datos se enviarán en el cuerpo de la respuesta HTTP.
+
 - io.WriteString(): Se utiliza para escribir (s) el contenido de una cadena de texto en un destino (w)
 que puede aceptar datos, como un archivo, la salida estándar o una respuesta HTTP.
 */
@@ -55,7 +61,7 @@ type User struct {
 
 // * Simulación de una base de datos en memoria.
 // La variable 'users' almacena los usuarios en un mapa.
-// La clave es un entero que representa el ID del usuario, y el valor es un struct `User`.
+// La clave es un entero que representa el ID del usuario, y el valor es un estructura `User`.
 var users = make(map[int]User)
 
 func main() {
@@ -79,12 +85,15 @@ func main() {
 
 	// Mostramos un mensaje en la consola cuando el servidor se inicia.
 	// `slog.Info()` es una función que registra un mensaje en la consola.
-	slog.Info("Servidor iniciado en el puerto :8080")
+	slog.Info("Iniciando servidor", "puerto", ":8080")
 
 	//* Iniciamos el servidor.
 	// El primer argumento es la dirección o puerto donde escuchará el servidor.
 	// El segundo argumento es el manejador de solicitudes (en este caso, `mux`).
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	if err := http.ListenAndServe(":8080", mux); err != nil {
+		slog.Error("Error fatal del servidor", "error", err.Error())
+		os.Exit(1)
+	}
 }
 
 // Controlador para manejar la ruta raíz.
@@ -93,9 +102,10 @@ func handleRoot(w http.ResponseWriter, r *http.Request) {
 	// Nos permite enviar cualquier contenido en la respuesta.
 	// fmt.Fprintf(w, "Hola Mundo!")
 
-	// Usamos io.WriteString para escribir directamente la respuesta como cadena.
+	// Usamos `io.WriteString` para escribir directamente la respuesta como cadena.
 	io.WriteString(w, "Hola Mundo!")
 }
+
 func createUser(w http.ResponseWriter, r *http.Request) {
 	// Creamos una instancia vacía de `User` para almacenar los datos del cuerpo de la solicitud.
 	// Go inicializa los campos de la estructura `User` a sus valores cero correspondientes.

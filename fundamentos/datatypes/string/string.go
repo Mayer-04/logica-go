@@ -24,9 +24,6 @@ Go automáticamente descompone la cadena en runas (no en bytes).
 Significa que una vez que se crea, no se puede modificar su contenido.
 
 * Substrings:
-Son secuencias de caracteres consecutivos que se encuentran dentro del string original.
-
-* Substrings:
 - Un substring es una secuencia consecutiva de caracteres dentro de un string.
 - Los substrings son inmutables: cualquier modificación genera un nuevo string.
 

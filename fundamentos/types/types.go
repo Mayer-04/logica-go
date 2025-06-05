@@ -6,11 +6,17 @@ import (
 
 /*
 * Types: Tipos en Go
-Los tipos en Go son una forma de definir la estructura y el comportamiento de los datos.
 
-- Pueden ser tipos básicos, como int, string, etc., o tipos definidos por el usuario,
-como estructuras (struct), interfaces, alias de tipos existentes y tipos personalizados.
-- Alias: Un alias es otro nombre que se puede usar para referirse a un tipo existente,
+Go es un lenguaje fuertemente tipado. Esto significa que cada variable tiene un tipo específico,
+y no se puede cambiar de tipo sin una conversión explícita.
+
+Hay varios tipos en Go:
+- Tipos básicos: int, string, float64, etc.
+- Estructuras (structs): tus propios tipos definidos por ti.
+- Alias de tipos: nombres alternativos para tipos existentes.
+- Tipos personalizados: nuevos tipos basados en tipos existentes (pero no alias).
+
+* Alias: Un alias es otro nombre que se puede usar para referirse a un tipo existente,
 pero no crea un tipo nuevo. Simplemente es una forma más legible de referirse a un tipo ya existente.
 */
 
@@ -86,12 +92,11 @@ func main() {
 	fmt.Printf("person2: %+v\n", person2)                             // Output: person2: {Name:Messi Age:37}
 	fmt.Printf("number2 (con método String): %s\n", number2.String()) // Output: 42
 
-	// * Alias de tipo genérico Go 1.24.
-	type ID = int
+	//* Alias de tipos genéricos 1.24+.
 
-	var n int = 10
-	var id ID = 10
-
-	id = n                       // funciona correctamente
-	fmt.Printf("id es %T\n", id) // Output: id es int
+	type MiAlias[T int | string] = T
+	var numero MiAlias[int] = 25
+	var texto MiAlias[string] = "¡Hola, Go 1.24!"
+	fmt.Println("numero:", numero)
+	fmt.Println("texto:", texto)
 }

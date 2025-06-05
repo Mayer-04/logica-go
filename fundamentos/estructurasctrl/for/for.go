@@ -26,7 +26,6 @@ es una iteración, y el proceso continúa hasta que no queden más elementos.
 func main() {
 	//* Bucle "for" clásico.
 	// Sintaxis: inicialización; condición; actualización.
-	fmt.Println("Bucle clásico:")
 	for i := 0; i <= 5; i++ {
 		fmt.Println(i)
 	}
@@ -39,20 +38,21 @@ func main() {
 		i++
 	}
 
-	//* Bucle "for" con "range".
-	// Se utiliza para iterar sobre colecciones como arrays, strings, slices, maps y canales.
-	// Si solo necesitas el índice, puedes omitir el segundo valor.
-	// Si solo necesitas el valor, puedes usar el identificador blank `_` para omitir el índice (_,v).
+	//* Bucle "for" con "range":
+	// Se usa para recorrer colecciones como arrays, slices, strings, mapas o canales.
+	// Puedes obtener el índice y el valor en cada iteración.
+	// Si solo necesitas el valor, omite el índice usando `_` (por ejemplo: _, v).
+	// Si solo necesitas el índice, omite el valor directamente.
 	numeros := [4]int{1, 2, 3, 4}
-	// La variable "i" representa el índice y la variable "v" representa el valor.
+	// En este ejemplo, "i" es el índice y "v" es el valor de cada elemento.
 	for i, v := range numeros {
 		fmt.Printf("Índice: %d, Valor: %d\n", i, v)
 	}
 
-	//* Bucle "for" con rango de enteros.
-	// En Go 1.22+, "range" se puede usar con enteros, iterando de 0 a n-1.
+	//* Bucle "for" con rango de enteros (Go 1.22+):
+	// Permite usar "range" con enteros para iterar desde 0 hasta n-1.
 	for i := range 3 {
-		fmt.Println(i) // Output: 0, 1, 2
+		fmt.Println(i) // Salida: 0, 1, 2
 	}
 
 	//* Bucle for con rango de enteros sin variable de índice.
@@ -119,11 +119,11 @@ func main() {
 		}
 	}
 
-	//* Bucle con más de una variable.
-	// Inicialización de múltiples variables: i comienza en 0 y j en 10.
-	// La condición es que i sea menor que j.
-	// En cada iteración, i aumenta en 1 y j disminuye en 1.
-	// i imprime los números del 0 al 4 y j los imprime del 10 al 6.
+	//* Bucle "for" con múltiples variables.
+	// Se inicializan dos variables: i = 0 y j = 10.
+	// El bucle se ejecuta mientras i < j (i sea menor que j).
+	// En cada iteración, i se incrementa y j se decrementa.
+	// Imprime i de 0 a 4 y j de 10 a 6.
 	for i, j := 0, 10; i < j; i, j = i+1, j-1 {
 		fmt.Printf("i: %d, j: %d\n", i, j)
 	}

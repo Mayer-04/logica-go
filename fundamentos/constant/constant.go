@@ -48,12 +48,13 @@ const (
 	Domingo          // Domingo == 6 (iota se incrementa automáticamente)
 )
 
-// REINICIO DE IOTA EN CADA BLOQUE CONST
-// iota se reinicia a 0 en cada nueva declaración const
+// REINICIO DE IOTA EN CADA BLOQUE CONST.
+// iota se reinicia a 0 en cada nueva declaración const.
 const (
 	A = iota // A == 0
 	B        // B == 1
 )
+
 const (
 	C = iota // C == 0 (¡iota se reinicia!)
 	D        // D == 1
@@ -110,7 +111,7 @@ func main() {
 	fmt.Printf("1 GB = %v bytes\n", GB) // 1 GB = 1048576 bytes
 	fmt.Printf("1 TB = %v bytes\n", TB) // 1 TB = 1073741824 bytes
 
-	// Se pueden `determinar en tiempo en ejecución`.
+	// Las constantes se pueden `determinar en tiempo en ejecución`.
 	//* NOTA: Tiempo de compilación → Es cuando el programa se traduce a código ejecutable.
 	const firstName = "Mayer"
 	const lastName = "Chaves"

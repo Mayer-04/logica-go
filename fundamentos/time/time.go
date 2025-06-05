@@ -90,4 +90,30 @@ func main() {
 	fmt.Printf("¡Listo! Tomó %v", elapsed) // ¡Listo! Tomó 5.0185089s
 
 	_ = time.Unix(0, 0)
+
+	// convierte una cadena de texto (string) que representa una fecha y hora en un valor del tipo time.Time,
+	// siempre que esa cadena siga un formato específico. Espera dos argumentos:
+	// 1. layout: El formato en el que esperas la fecha/hora.
+	// 2. value: La cadena de texto con la fecha/hora que quieres convertir.
+	t, _ := time.Parse("2006-01-02 15:04", "2025-05-27 18:30")
+	fmt.Println("Parse()", t)
+
+	// Ejemplo 1: Fecha simple
+	t2, _ := time.Parse("2006-01-02", "2025-05-27")
+	fmt.Println(t2) // Output: 2025-05-27 00:00:00 +0000 UTC
+
+	// Ejemplo 3: Fecha con hora y segundos
+	t3, _ := time.Parse("02/01/2006 15:04:05", "27/05/2025 14:05:30")
+	fmt.Println(t3) // Output: 2025-05-27 14:05:30 +0000 UTC
+
+	//* time.Now().Format() Convierte la hora actual a string con formato personalizado.
+
+	// Ejemplo 1: Fecha actual en formato "año-mes-día"
+	fmt.Println(time.Now().Format("2006-01-02")) // Output: 2025-05-27s
+
+	// Ejemplo 2: Fecha y hora con minutos
+	fmt.Println(time.Now().Format("02/01/2006 15:04")) // Output: 27/05/2025 19:05
+
+	// Ejemplo 3: Solo hora con AM/PM
+	fmt.Println(time.Now().Format("03:04 PM")) // Output: 07:05 PM
 }

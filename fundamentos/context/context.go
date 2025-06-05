@@ -34,20 +34,22 @@ func main() {
 	//* `context.TODO()` se usa como un "marcador" cuando aún no estás seguro qué tipo de contexto utilizar.
 	// Es útil durante el desarrollo, pero no debe usarse en producción.
 	// Normalmente, se reemplaza por `context.Background()` o un contexto con características específicas.
+	// Es com decir: "Aquí necesito un contexto, pero aún no sé qué tipo usar".
 	_ = context.TODO()
 
-	// Crear un contexto raíz (padre).
+	//* `context.Background()` crea un contexto raíz (padre).
 	// Este contexto no puede ser cancelado y no tiene un plazo de tiempo asociado.
+	// Normalmente partes de context.Background() y luego creas contextos derivados con cancelación, timeout, etc.
 	ctx := context.Background()
 
 	//* Crear un contexto derivado de `ctx` que se puede cancelar.
 	// El contexto `ctxCancel` hereda de `ctx` y puede ser cancelado para liberar recursos.
 	ctxCancel, cancel := context.WithCancel(ctx)
 
-	//* `context.WithoutCancel(ctxCancel)` se añadio en la versión 1.21 de Go.
+	//* `context.WithoutCancel()` se añadio en la versión 1.21 de Go.
 	// Permite crear una copia de un contexto padre que no se cancela cuando el contexto padre es cancelado.
 	// No tiene un canal `Done`, no tiene una fecha límite y no propaga errores si el contexto padre es cancelado.
-	noCancelCtx := context.WithoutCancel(ctxCancel)
+	noCancelCtx := context.WithoutCancel(ctx)
 
 	// `cancel()` se llama cuando la función `main` termine, para liberar los recursos asociados con `ctxCancel`.
 	// Es una buena práctica llamar a `cancel` para evitar fugas de recursos.

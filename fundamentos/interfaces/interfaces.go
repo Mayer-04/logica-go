@@ -47,8 +47,8 @@ Si estas creando una aplicación que necesita guardar datos e inicialmente decid
 en un archivo y deseas cambiar la implementación para que los datos se guarden en una base de datos,
 puedes definir un interface que te permita hacer estos cambios de manera sencilla.
 
-3️⃣ Restringir el comportamiento: Cuando queremos asegurarnos de que un tipo específico cumple
-con ciertos requisitos o restricciones.
+3️⃣ Restringir el comportamiento:
+Cuando queremos asegurarnos de que un tipo específico cumple con ciertos requisitos o restricciones.
 
 * NOTA: Un código más simple es un código más fácil de mantener.
 */
@@ -76,7 +76,7 @@ type MyError struct {
 	Msg string
 }
 
-// Error es un método que hace que MyError cumpla con la interfaz `error`.
+// `Error()` es un método que hace que MyError cumpla con la interfaz `error`.
 // La interfaz `error` es una interfaz nativa de Go que solo requiere la implementación
 // de un método: `Error() string`. Cualquier tipo que implemente este método puede
 // ser considerado un error en Go.
@@ -91,13 +91,13 @@ type Person struct {
 	Age  int
 }
 
-// Print es un método de Person que cumple con la interfaz `Printer`.
+// `Print()` es un método de Person que cumple con la interfaz `Printer`.
 // Esto significa que cualquier instancia de Person puede ser asignada a una variable de tipo Printer.
 func (p Person) Print() {
 	fmt.Printf("Hola, mi nombre es %s y tengo %d años.\n", p.Name, p.Age)
 }
 
-// Log es un método de Person que cumple con la interfaz Logger.
+// `Log()` es un método de Person que cumple con la interfaz Logger.
 // Esto significa que cualquier instancia de Person puede ser asignada a una variable de tipo Logger.
 func (p Person) Log(message string) {
 	fmt.Printf("[LOG]: %s\n", message)

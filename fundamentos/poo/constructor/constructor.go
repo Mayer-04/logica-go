@@ -20,8 +20,8 @@ funciones normales que crean y devuelven nuevas instancias de nuestras estructur
   son correctos. Por ejemplo, verificar que una edad no sea negativa.
 
 - Los constructores pueden devolver el objeto de dos maneras:
-  • Como valor normal: cuando queremos una copia independiente del objeto.
-  • Como puntero: cuando queremos poder modificar el objeto original después,
+  • Como valor normal: Cuando queremos una copia independiente del objeto.
+  • Como puntero: Cuando queremos poder modificar el objeto original después,
     o cuando el objeto es muy grande y queremos evitar hacer copias.
 */
 
@@ -31,7 +31,7 @@ type Persona struct {
 	Edad   int
 }
 
-//* New crea una nueva instancia de `Persona`.
+// * New crea una nueva instancia de `Persona`.
 // Recibe el nombre y la edad como parámetros y retorna un puntero a una nueva instancia de `Persona`.
 func New(nombre string, edad int) *Persona {
 	// Creamos y retornamos un puntero a `Persona` con los valores iniciales que se pasaron como parámetros.
@@ -41,7 +41,7 @@ func New(nombre string, edad int) *Persona {
 	}
 }
 
-//* NewPersona crea una nueva instancia de `Persona` con validaciones.
+// * NewPersona crea una nueva instancia de `Persona` con validaciones.
 // Si el nombre es vacío o la edad es negativa, retorna un error.
 func NewPersona(nombre string, edad int) (*Persona, error) {
 	// Validación para nombre vacío
@@ -61,7 +61,7 @@ func NewPersona(nombre string, edad int) (*Persona, error) {
 	}, nil
 }
 
-//* NewPersonaValor crea una nueva instancia de `Persona` y la retorna por valor.
+// * NewPersonaValor crea una nueva instancia de `Persona` y la retorna por valor.
 // Se utiliza cuando no se necesita modificar la instancia después de la creación, o cuando la estructura es pequeña.
 func NewPersonaValor(nombre string, edad int) Persona {
 	// Retornamos un valor de tipo `Persona` con los valores iniciales.

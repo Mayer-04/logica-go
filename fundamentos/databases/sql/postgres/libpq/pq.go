@@ -19,8 +19,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// defer db.Close()
+	defer db.Close()
 
 	age := 21
-	rows, err := db.Query("SELECT name FROM users WHERE age = $1", age)
+	_, err = db.Query("SELECT name FROM users WHERE age = $1", age)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }

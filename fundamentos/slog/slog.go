@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log/slog"
 	"os"
 )
@@ -45,4 +46,18 @@ func main() {
 	if err != nil {
 		logger.Error("Error al eliminar el archivo", "error", err)
 	}
+
+	logFatalError(logger, "Error fatal")
+	slogFatalf(logger, "Error fatal: %s", "algo")
+}
+
+func logFatalError(logger *slog.Logger, message string, args ...any) {
+	logger.Error(message, args...)
+	os.Exit(1)
+}
+
+func slogFatalf(logger *slog.Logger, format string, args ...any) {
+	msg := fmt.Sprintf(format, args...)
+	logger.Error(msg, "fatal", true)
+	os.Exit(1)
 }

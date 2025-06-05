@@ -62,7 +62,7 @@ func main() {
 }
 
 func fileExists(path string) (bool, error) {
-	// Recupera información del archivo
+	// Recupera información del archivo.
 	_, err := os.Lstat(path)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
