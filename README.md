@@ -18,7 +18,7 @@ Go fue diseñado para ofrecer alto rendimiento, compilación rápida y una gesti
 3. **Concurrencia:** Go tiene soporte nativo para manejar múltiples tareas de manera simultánea utilizando `goroutines`, lo que facilita la creación de programas concurrentes.
 4. **Multiparadigma:** Go es principalmente un `lenguaje imperativo y concurrente`, pero también admite ciertos aspectos de la programación funcional como **funciones de primera clase** y tiene su enfoque hacia la programación orientada a objetos.
 5. **Interfaces flexibles:** En Go, las `interfaces` permiten definir comportamientos que pueden ser implementados por diferentes tipos, facilitando la creación de código flexible y reutilizable.
-6. **Lenguaje de propósito General:** Go es ampliamente utilizado en la industria por su rendimiento, simplicidad y escalabilidad, siendo ideal para:
+6. **Lenguaje de propósito general:** Go es ampliamente utilizado en la industria por su rendimiento, simplicidad y escalabilidad, siendo ideal para:
 
 - Aplicaciones en la nube.
 - Servidores web y herramientas de red.
@@ -26,6 +26,17 @@ Go fue diseñado para ofrecer alto rendimiento, compilación rápida y una gesti
 - Infraestructura y contenedores (como **Docker** y **Kubernetes**).
 - Microservicios.
 - Sistemas distribuidos.
+
+7. Gran parte de las herramientas **DevOps** están desarrolladas en Go, entre ellas:
+
+- Docker
+- Kubernetes
+- Podman
+- Terraform
+- Prometheus
+- Vault
+- Argo CD
+- Grafana *(utiliza Go en su backend)*
 
 ## Contribución
 
