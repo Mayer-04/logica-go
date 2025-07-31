@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"sync"
 )
 
 /*
@@ -62,7 +63,10 @@ type User struct {
 // * Simulación de una base de datos en memoria.
 // La variable 'users' almacena los usuarios en un mapa.
 // La clave es un entero que representa el ID del usuario, y el valor es un estructura `User`.
-var users = make(map[int]User)
+var (
+	users = make(map[int]User)
+	mu    sync.RWMutex
+)
 
 func main() {
 	// Crea un servidor HTTP.
@@ -136,6 +140,9 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 	// El ID del usuario se crea como el siguiente entero mayor al último ID guardado.
 	userID := len(users) + 1
 
+	mu.Lock()
+	defer mu.Unlock()
+
 	// Guardamos el usuario en la "base de datos".
 	users[userID] = user
 
@@ -158,6 +165,9 @@ func getUsers(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+
+	mu.RLock()
+	defer mu.RUnlock()
 
 	// Buscamos el usuario en el mapa `users`.
 	user, ok := users[id]
@@ -197,6 +207,9 @@ func deleteUser(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+
+	mu.Lock()
+	defer mu.Unlock()
 
 	// Verificamos si el usuario existe en el mapa.
 	if _, ok := users[id]; !ok {
