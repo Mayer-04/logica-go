@@ -1,25 +1,29 @@
 package main
 
 import (
+	"bufio"
 	"errors"
 	"fmt"
+	"os"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 
 	"github.com/fatih/color"
 )
 
-// Estructura que contiene los campos del cliente
 type Cliente struct {
+	ID        int
 	Nombre    string
 	Direccion string
 	Telefono  int
 }
 
 // Función constructora para el cliente
-func New(nombre, direccion string, telefono int) *Cliente {
+func New(id int, nombre, direccion string, telefono int) *Cliente {
 	return &Cliente{
+		ID:        id,
 		Nombre:    nombre,
 		Direccion: direccion,
 		Telefono:  telefono,
@@ -31,18 +35,26 @@ type Clientes []Cliente
 
 const maximoDeClientes = 10
 
-var titulo = "REGISTRO DE CLIENTES"
-
-var menu = `
+var (
+	titulo = "REGISTRO DE CLIENTES"
+	menu   = `
 	1) Agregar cliente
 	2) Mostrar clientes
 	3) Eliminar cliente
 	4) Salir
-`
+	`
+)
 
-var listaClientes = []Cliente{
-	{Nombre: "Mayer", Direccion: "Calle 1", Telefono: 1234},
-	{Nombre: "Andres", Direccion: "Calle 2", Telefono: 56789},
+var listaClientes = Clientes{
+	{ID: 1, Nombre: "Mayer", Direccion: "Calle 1", Telefono: 1234},
+	{ID: 2, Nombre: "Andres", Direccion: "Calle 2", Telefono: 56789},
+}
+
+func input(prompt string) string {
+	fmt.Print(prompt)
+	reader := bufio.NewReader(os.Stdin)
+	texto, _ := reader.ReadString('\n')
+	return strings.TrimSpace(texto)
 }
 
 func main() {
@@ -51,9 +63,7 @@ loop:
 	for {
 		fmt.Println(titulo)
 		fmt.Println(menu)
-		var opcion string
-		fmt.Print("Ingresa una opción: ")
-		fmt.Scanln(&opcion)
+		opcion := input("Ingresa una opción: ")
 		validacion, err := validarOpcion(opcion)
 		if err != nil {
 			fmt.Println(err)
@@ -76,25 +86,28 @@ loop:
 }
 
 func agregarCliente() {
-	var nombre, direccion string
-	var telefono string
+	numeroClientes := len(listaClientes) + 1
 
-	fmt.Print("Ingrese el nombre del cliente: ")
-	fmt.Scanln(&nombre)
+	nombre := input("Ingrese el nombre del cliente: ")
 	if !validarNombre(nombre) {
 		color.Red("Error: el nombre solo puede contener letras y espacios.")
 		return
 	}
 
-	fmt.Print("Ingrese la dirección: ")
-	fmt.Scanln(&direccion)
+	for _, name := range listaClientes {
+		if nombre == name.Nombre {
+			color.Red("El nombre ya existe")
+			return
+		}
+	}
+
+	direccion := input("Ingrese la dirección: ")
 	if err := validarDireccion(direccion); err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fmt.Print("Ingrese el número de teléfono: ")
-	fmt.Scanln(&telefono)
+	telefono := input("Ingrese el número de teléfono: ")
 	numeroTelefono, err := validarTelefono(telefono)
 	if err != nil {
 		fmt.Println(err)
@@ -106,7 +119,7 @@ func agregarCliente() {
 		return
 	}
 
-	nuevoCliente := New(nombre, direccion, numeroTelefono)
+	nuevoCliente := New(numeroClientes, nombre, direccion, numeroTelefono)
 	listaClientes = append(listaClientes, *nuevoCliente)
 	color.Green("Cliente agregado correctamente.")
 }
@@ -120,34 +133,39 @@ func mostrarClientes() {
 		return
 	}
 
-	fmt.Printf("Número de clientes: %d\n", len(listaClientes))
+	color.Cyan("Número de clientes: %d\n", len(listaClientes))
+
 	// Recorrer todos los clientes de la lista y mostrarlos
 	for _, cliente := range listaClientes {
 		// fmt.Printf("%+v\n", cliente)
-		color.Blue("Nombre: %s, Dirección: %s, Teléfono: %d\n", cliente.Nombre, cliente.Direccion, cliente.Telefono)
+		color.Blue("ID: %d, Nombre: %s, Dirección: %s, Teléfono: %d\n",
+			cliente.ID, cliente.Nombre, cliente.Direccion, cliente.Telefono,
+		)
 	}
 }
 
 func eliminarCliente() {
-	var nombre string
-	fmt.Print("Ingresa el nombre del cliente a eliminar: ")
-	fmt.Scanln(&nombre)
+	nombre := input("Ingresa el nombre del cliente a eliminar: ")
+
+	if nombre == "" {
+		color.Red("Error: el nombre no puede estar vacío.")
+		return
+	}
 
 	// Encontrar y eliminar el cliente por nombre
 	for i, cliente := range listaClientes {
 		if nombre == cliente.Nombre {
 			// Eliminar al cliente de la lista
-			listaClientes = append(listaClientes[:i], listaClientes[i+1:]...)
-			color.Green("Cliente eliminado: ", cliente.Nombre)
+			// listaClientes = append(listaClientes[:i], listaClientes[i+1:]...)
+			listaClientes = slices.Delete(listaClientes, i, i+1)
+			color.Green("Cliente eliminado: %s", cliente.Nombre)
 			return
 		}
 	}
-	color.Red("Cliente no encontrado.")
+	color.Red("Cliente '%s' no encontrado en la lista.", nombre)
 }
 
-//* VALIDACIONES
-
-// TODO: Validar que el nombre no este ya en la lista de clientes.
+// * VALIDACIONES
 func validarNombre(nombre string) bool {
 	regex := regexp.MustCompile(`^[a-zA-Z\s]+$`)
 	return regex.MatchString(nombre)
@@ -172,8 +190,7 @@ func validarTelefono(telefono string) (int, error) {
 }
 
 func validarOpcion(opcion string) (int, error) {
-	removiendoEspacios := strings.TrimSpace(opcion)
-	numero, err := strconv.Atoi(removiendoEspacios)
+	numero, err := strconv.Atoi(opcion)
 	if err != nil {
 		return 0, fmt.Errorf("error: La opción debe ser un número")
 	}
