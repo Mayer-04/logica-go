@@ -32,14 +32,19 @@ para recibir datos de un canal (dato <- canal).
 - Recibir datos de un canal cerrado devolvera el `valor cero` del tipo del canal.
 - NO es obligatorio cerrar un canal, el recolector de basura se encargara de esto cuando no se utilice el canal.
 
-* Existen canales con y sin búfer:
-- Canal sin buffer: se bloquea hasta que otro goroutine reciba el valor.
-- Con búfer: Se pueden almacenar varios datos en el canal antes de que se bloquee (No se bloquea inmediatamente).
+* Tipos de canales: con y sin búfer
+En Go, los canales pueden ser con búfer o sin búfer, y su comportamiento varía según el tipo:
+
+- Canal sin búfer: La operación de envío se bloquea hasta que otro goroutine reciba el valor.
+Es decir, el envío y la recepción deben ocurrir al mismo tiempo.
+- Canal con búfer: Puede almacenar varios valores sin necesidad de que otro goroutine los reciba de inmediato.
+Solo se bloquea cuando el búfer está lleno.
 
 * IMPORTANTE:
-- Evitar el `deadlock`, que ocurre cuando todas las goroutines están bloqueadas, esperando unas de otras.
-- Los canales unidireccionales se usan para limitar el uso de un canal a solo enviar o solo recibir datos,
-lo cual puede ayudar a evitar errores.
+- Evita el deadlock: Un deadlock ocurre cuando todas las goroutines están esperando unas a otras
+y ninguna puede continuar. Este es un error común al trabajar con canales mal sincronizados.
+- Canales unidireccionales: Son canales que se pueden usar exclusivamente para enviar o para recibir datos.
+Son útiles para restringir el acceso a un canal
 
 * Señalizar
 Significa notificar a una goroutine (o a varias) que un evento ha ocurrido, sin necesidad de transferir datos.
@@ -69,19 +74,22 @@ func main() {
 	var channel chan int             // ch3 == nil
 	fmt.Println("channel:", channel) // Output: <nil>
 
-	// Creando un canal de tipo string.
+	// Creamos un canal de tipo string sin búfer.
+	// Esto significa que las operaciones de envío se bloquearán hasta que alguien reciba el valor.
 	ch := make(chan string)
 
-	//* Enviar datos al canal desde una goroutine.
+	// * Enviamos datos al canal desde una goroutine.
 	go func() {
-		time.Sleep(1 * time.Second) // Simulamos una operación que 1 segundo en ejecutarse.
-		ch <- "Hello, World!"       // Envía el mensaje "Hello, World!" al canal `ch`.
+		time.Sleep(1 * time.Second) // Simulamos una operación que tarda 1 segundo en completarse.
+		ch <- "Hello, World!"       // Enviamos el mensaje "Hello, World!" al canal `ch`.
 	}()
 
-	//* Operación de recepción desde un canal.
-	// `msg` es la variable donde se almacená el valor recibido desde el canal.
-	// `ok` es un valor booleano que indica si la operación de recepción fue exitosa.
+	// * Recibimos un valor del canal.
+	// `msg` almacena el valor recibido desde el canal.
+	// `ok` indica si la recepción fue exitosa (true) o si el canal fue cerrado (false).
 	msg, ok := <-ch
+
+	// Imprimimos el valor recibido y el estado del canal.
 	fmt.Println("mensaje:", msg)      // Output: Hello, World!
 	fmt.Println("canal abierto:", ok) // Output: true
 
@@ -95,43 +103,54 @@ func main() {
 	send(num)
 
 	//* Creando un canal con búfer.
-	// Este canal puede almacenar hasta 2 enteros antes de bloquearse.
-	ch2 := make(chan int, 2)
+	// Lo que define el tamaño del búfer es cuántos valores pueden estar en el canal al mismo tiempo
+	// sin que el envío se bloquee.
+	ch2 := make(chan int, 2) // Puede almacenar hasta 2 enteros al mismo tiempo antes de bloquearse.
 
-	// Enviando datos al canal. No se bloquea porque tiene capacidad para almacenar dos valores.
-	// Las operaciones de envío al canal solo se bloquearán cuando el búfer esté lleno.
+	// Enviando datos al canal con búfer.
+	// Estas operaciones no se bloquean porque el canal aún tiene espacio disponible.
+	// El envío a un canal con búfer solo se bloquea cuando el búfer está lleno.
 	ch2 <- 4
 	ch2 <- 2
-	// ch2 <- 6 // Se bloquearía si se descomenta, ya que el búfer está lleno.
+
+	// ch2 <- 6 // Esta línea causaría un bloqueo si se descomenta,
+	// porque el canal ya ha alcanzado su capacidad máxima (2 valores).
 
 	// Recibiendo datos del canal.
 	// Las operaciones de recepción solo se bloquearán cuando el búfer esté vacío.
 	fmt.Println(<-ch2) // Imprime el primer valor almacenado en el canal (4).
 	fmt.Println(<-ch2) // Imprime el segundo valor almacenado en el canal (2).
 
-	// * Ejemplo de uso de canal cerrado.
-	// Creando un canal de enteros.
+	// * Ejemplo de uso de un canal con búfer y su posterior cierre.
+	// Creamos un canal de enteros con capacidad para almacenar hasta 2 valores sin bloquearse.
 	ch3 := make(chan int, 2)
 
+	// Iniciamos una goroutine que enviará datos al canal.
 	go func() {
 		for i := 1; i <= 3; i++ {
-			ch3 <- i // Enviando valores al canal.
+			ch3 <- i // Enviamos valores al canal. El envío se bloquea solo si el búfer está lleno.
 		}
-		close(ch3) // Cerrando el canal después de enviar todos los valores.
+
+		// Cerramos el canal una vez que se han enviado todos los valores.
+		// Esto es importante para que el receptor sepa que no habrá más datos.
+		close(ch3)
 	}()
 
-	// Iterando todos los valores pasados por el canal `ch3`.
-	// Recibimos los datos del canal hasta que esté cerrado.
+	// Iteramos sobre todos los valores recibidos del canal `ch3`.
+	// El bucle continúa leyendo hasta que el canal sea cerrado.
+	// Cada vez que se lee un valor del canal, se libera un espacio en el búfer,
+	// lo que permite que otros envíos (bloqueados o futuros) puedan completarse.
 	for value := range ch3 {
-		// Leemos cada uno de los valores del canal y los imprimimos.
+		// Leemos un valor del canal y lo imprimimos.
 		fmt.Println("valor:", value) // Output: 1, 2, 3
 	}
 
-	//* Canales de notificación.
-	// Se utilizan cuando se necesita notificar o señalizar a otras goroutines de que algo ha ocurrido.
-	// No se usan para enviar datos entre goroutines.
+	//* Canales de notificación (o señalización).
+	// Se utilizan para informar a otras goroutines que una tarea ha finalizado o que un evento ha ocurrido.
+	// A diferencia de otros canales, no se usan para enviar datos, sino únicamente como mecanismo de sincronización.
 
-	// Se usa 'chan struct{}' en lugar de 'chan bool' para reducir el uso de memoria.
+	// Usamos `chan struct{}` en lugar de `chan bool` porque `struct{}` no ocupa memoria adicional.
+	// Es una convención idiomática en Go para este tipo de casos.
 	done := make(chan struct{})
 
 	go func() {
@@ -145,14 +164,17 @@ func main() {
 	fmt.Println("Finalizado")
 }
 
-// `send` envía un valor entero al canal.
-// Esta función solo acepta un canal que envie datos.
+// send envía un valor entero a través del canal.
+// El parámetro `num` es un canal unidireccional de solo envío (chan<- int),
+// lo que significa que esta función solo puede enviar datos a ese canal,
+// pero no puede recibir desde él.
 func send(num chan<- int) {
 	num <- 10
 }
 
-// `receive` recibe un valor entero del canal y lo imprime.
-// Esta función solo acepta un canal que reciba datos.
+// receive recibe un valor entero desde el canal y lo imprime.
+// El parámetro `num` es un canal unidireccional de solo recepción (<-chan int),
+// por lo tanto, esta función solo puede leer datos del canal, pero no puede enviar a él.
 func receive(num <-chan int) {
 	fmt.Println(<-num)
 }
